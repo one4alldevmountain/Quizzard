@@ -1,11 +1,20 @@
 import React from 'react';
-import Landing from './Components/Landing/LandingView';
+import routes from './routes';
 import './App.css';
+import { HashRouter } from 'react-router-dom';
+
+
+
+
 
 function App() {
   return (
+
+
     <div className="App">
-      <Landing />
+      <HashRouter>
+           {routes}
+      </HashRouter>
     </div>
   );
 }

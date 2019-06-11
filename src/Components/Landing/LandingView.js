@@ -1,7 +1,7 @@
 import React from 'react';
 import logo1 from '../images/logo1.png';
 import './Landing.scss';
-
+import { Link } from 'react-router-dom';
 
 
 
@@ -14,8 +14,8 @@ var Landing = (props) => {
             alt="logo"/>
 
             <div className="Buttons">
-                <button className="btn-1">Take a Quiz</button>
-                <button className="btn-1">Make a Quiz</button>
+                <Link to="/Pin" className="btn-1">Take a Quiz</Link>
+                <Link to="/Register" className="btn-1">Make a Quiz</Link>
             </div>
 
         </div>
