@@ -1,0 +1,31 @@
+.logo{
+    margin-top:10px;
+    height: 300px;
+}
+
+
+.Buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.btn-1{
+    height: 200px;
+    width: 200px;
+    border: outset;
+    border-color: white;
+    background-color: rgb(102, 152, 245);
+    font-family: Arial, Helvetica, sans-serifl;
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 10px;
+    margin: 5%;
+}
+
+
+.btn-1:hover{
+    cursor: pointer;
+}
