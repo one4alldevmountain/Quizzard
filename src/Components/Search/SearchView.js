@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import './Search.scss';
+import HeaderView from "../Header/HeaderView";
 // import axios from "axios";
 
 class SearchView extends Component {
@@ -22,6 +24,7 @@ class SearchView extends Component {
     let { searchResults, title } = this.state;
     return (
       <div>
+        <HeaderView />
         <center>
           <h3>SEARCh PAGE</h3>
         </center>

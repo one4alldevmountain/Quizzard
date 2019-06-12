@@ -1,7 +1,16 @@
 .header {
-    padding: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+    padding: 30px;
     text-align: center;
-    background: #1abc9c;
+    background: #1a8ebc;
     color: white;
     font-size: 30px;
   }
+
+  .logo-header{
+    height: 80px;
+  }
+

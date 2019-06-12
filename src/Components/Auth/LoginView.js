@@ -45,9 +45,9 @@ var Register = (props) => {
                                     <p className="signup-text">sign up</p>
                                 </Link>
 
-                                <button className="login-button" >
+                                <Link to="/Homepage" className="login-button" >
                                     Login
-                                </button>
+                                </Link>
                             </div>
 
                         </section>
