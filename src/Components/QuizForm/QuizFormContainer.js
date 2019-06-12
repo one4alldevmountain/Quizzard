@@ -15,18 +15,35 @@ class QuizFormContainer extends Component{
             whoToEmail: [],
             quizType: '',
             inputType: '',
+            inputsAreValid: false,
 
 
 
         }
     }
     
+    checkInputsValidity = () => {
+        if(this.state.quizType && this.state.inputType){
+            this.setState({
+                inputsAreValid: true,
+            });
+        }else{
+            this.setState({
+                inputsAreValid: false,
+            });
+        };
+    }
 
     handleUpperTypeChange = (value, whatToUpdate) => {
         this.setState({
             [whatToUpdate]: value,
-        })
+        });
+
+        
+        
     }
+
+    
 
 
     render(){
@@ -62,6 +79,7 @@ class QuizFormContainer extends Component{
                         whoToEmail={this.state.whoToEmail}
                         quizType={this.state.quizType}
                         inputType={this.state.inputType}
+                        inputsAreValid={this.state.inputsAreValid}
                         />
 
                 </div>
