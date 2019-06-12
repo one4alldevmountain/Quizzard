@@ -1,11 +1,11 @@
 import React from 'react';
 import logo1 from '../images/logo1.png';
 import { Link } from 'react-router-dom';
-import './Takerpin.scss';
+import './GetQuizByPin.scss';
 
 
 
-var TakerpinView = (props) => {
+var GetQuizByPin = (props) => {
     return (
         <div>
             <Link to="/">
@@ -29,4 +29,4 @@ var TakerpinView = (props) => {
 
 
 
-export default TakerpinView;
+export default GetQuizByPin;
