@@ -17,10 +17,20 @@ export const openEnded = ( quizType, questionId, handleChangeCb) => {
         )
     }
     export const multipleChoice = ( quizType, questionId, handleChangeCb, answers) => {
+        let quizTypeDependantJsx;
         const mappedAnswers = answers.map( (answer, index) => {
+            if(quizType === 'graded'){
+                quizTypeDependantJsx = <input type='radio' name={questionId} value={answer.answerContent}/>;
+            }
+            // else if(quizType === 'sorted'){
+            //     quizTypeDependantJsx = <option>{}</option>
+            // }
             return (
                 <div key={index}>
-                    {answer.answerContent}<input type='radio' value={answer}/>
+                    <input type='text' value={answer.answerContent}/>
+                    {quizTypeDependantJsx}
+                    {/* {quizType == 'sorted' ?<select>{quizTypeDependantJsx}</select>} */}
+                    
                 </div>
             )
         })
@@ -28,7 +38,7 @@ export const openEnded = ( quizType, questionId, handleChangeCb) => {
         return(
             <div>
                 {mappedAnswers}
-                <button>add answer</button>
+                <button onClick={() => handleChangeCb(questionId)}>add answer</button>
             </div>
         )
     }  

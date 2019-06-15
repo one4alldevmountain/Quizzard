@@ -54,6 +54,7 @@ class QuizFormContainer extends Component{
                 <label>
                     Test Type
                     <select value={this.state.quizType} onChange={event => this.handleUpperTypeChange(event.target.value, 'quizType' )}>
+                        <option value="">------Please choose an option.------</option>
                         <option value="graded">Graded</option>
                         <option value="sorted">Sorted</option>
                         <option value="survey">Survey</option>
@@ -62,6 +63,7 @@ class QuizFormContainer extends Component{
                 <label>
                 Input Type
                 <select value={this.state.inputType} onChange={event => this.handleUpperTypeChange(event.target.value, 'inputType' )}>
+                    <option value="">------Please choose an option.------</option>
                     <option value="boolean">True/False</option>
                     <option value="multipleChoice">Multiple Choice</option>
                     <option value="chooseMultiple">Choose Multiple</option>
@@ -78,12 +80,17 @@ class QuizFormContainer extends Component{
                 <hr/>
                 <div>
                     <h1>{this.state.quizType}</h1>
+
+                    {this.state.inputType && this.state.quizType ? 
                     <QuizLowerForm 
                         whoToEmail={this.state.whoToEmail}
                         quizType={this.state.quizType}
                         inputType={this.state.inputType}
                         inputsAreValid={this.state.inputsAreValid}
-                        />
+                        /> :
+                        null
+                        }
+                    
 
                 </div>
             </div>

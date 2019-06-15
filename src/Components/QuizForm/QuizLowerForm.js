@@ -39,6 +39,7 @@ class QuizLowerForm extends Component{
 
 
     handleQuestionChange = (content, index) => {
+        console.log(index)
         this.setState((previousState) => {
             let questions = previousState.quiz.questions.slice(0);
             questions[index]['questionContent'] = content;
@@ -57,6 +58,28 @@ class QuizLowerForm extends Component{
     // handleAnswerChange = () => {
     //     switch()
     // }
+    handleAddAnswer = (questionIndex) => {
+        this.setState((previousState) => {
+            let questions = previousState.quiz.questions.slice(0);
+            questions[questionIndex]['answers'] = [
+                ...previousState.quiz.questions[questionIndex]['answers'],
+                 {
+                     answerContent: '',
+
+                 }
+                ];
+            
+            return{
+                ...previousState,
+                quiz: {
+                    ...previousState.quiz,
+                    questions: questions,
+                    
+                }
+            }
+        })
+
+    }
 
     
    
@@ -98,7 +121,15 @@ class QuizLowerForm extends Component{
                         return(
     
                             <div key={index}>
-                                <QuestionCard  questionId={index} quizType={quizType} inputType={inputType} handleQuestionChange={this.handleQuestionChange} answers={this.state.quiz.questions[index].answers}/>
+                                <QuestionCard  
+                                    questionId={index} 
+                                    quizType={quizType} 
+                                    inputType={inputType} 
+                                    handleQuestionChange={this.handleQuestionChange} 
+                                    handleAddAnswer={this.handleAddAnswer}
+                                    answers={this.state.quiz.questions[index].answers}
+
+                                    />
                             </div>
                             
                         )
