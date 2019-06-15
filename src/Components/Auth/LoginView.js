@@ -1,11 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import logo1 from '../images/logo1.png';
 import './Login.scss';
 
 
 
-var Register = (props) => {
+
+
+
+
+var Register = ({ loginUser }) => {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+
+
     return (
         <div>
             <Link to="/">
@@ -19,38 +27,45 @@ var Register = (props) => {
                 <div className="auth-container">
 
 
-                        <section className="register-form">
+                    <section className="register-form">
 
-                            <div className="username">
-                                <input
-                                    className="username-input"
-                                    placeholder="Username"
-                                    type="text"
-                                 
-                                />
-                            </div>
+                        <div className="username">
+                            <input
+                                onChange={(e) => {setUsername(e.target.value)}}
+                                value={username}
+                                className="username-input"
+                                placeholder="Username"
+                                type="text"
 
-                            <div className="password">
+                            />
+                        </div>
 
-                                <input
-                                    className="password-input"
-                                    placeholder="Password"
-                                    type="password"
-                                />
-                            </div>
-                          
+                        <div className="password">
 
-                            <div className="buttons">
-                                <Link className="register-button" to="/Register" >
-                                    <p className="signup-text">sign up</p>
-                                </Link>
+                            <input
+                                onChange={(e) => {setPassword(e.target.value)}}
+                                value={password}
+                                className="password-input"
+                                placeholder="Password"
+                                type="password"
+                            />
+                        </div>
 
-                                <Link to="/Homepage" className="login-button" >
-                                    Login
-                                </Link>
-                            </div>
 
-                        </section>
+                        <div className="buttons">
+                            <Link className="register-button" to="/Register" >
+                                sign up
+                            </Link>
+
+                            <button 
+                            onClick={() => {loginUser(username,password)}}
+                            to="/Homepage" 
+                            className="login-button" >
+                                Login
+                                </button>
+                        </div>
+
+                    </section>
 
 
                 </div>
