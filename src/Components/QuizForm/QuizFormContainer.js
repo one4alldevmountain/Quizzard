@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import QuizLowerFormConditional from './QuizLowerFormConditional';
+import QuizLowerForm from './QuizLowerForm';
 
 
 
@@ -16,6 +16,7 @@ class QuizFormContainer extends Component{
             quizType: '',
             inputType: '',
             inputsAreValid: false,
+            
 
 
 
@@ -47,6 +48,7 @@ class QuizFormContainer extends Component{
 
 
     render(){
+        
         return(
             <div>
                 <label>
@@ -63,7 +65,7 @@ class QuizFormContainer extends Component{
                     <option value="boolean">True/False</option>
                     <option value="multipleChoice">Multiple Choice</option>
                     <option value="chooseMultiple">Choose Multiple</option>
-                    <option value="fillInTheBlank">Fill in the blank</option>
+                    {/* <option value="fillInTheBlank">Fill in the blank</option> */}
                     <option value="openEnded">Open Ended</option>
                 </select>
                 </label>
@@ -75,7 +77,8 @@ class QuizFormContainer extends Component{
                 </div>
                 <hr/>
                 <div>
-                    <QuizLowerFormConditional 
+                    <h1>{this.state.quizType}</h1>
+                    <QuizLowerForm 
                         whoToEmail={this.state.whoToEmail}
                         quizType={this.state.quizType}
                         inputType={this.state.inputType}
