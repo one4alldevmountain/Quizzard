@@ -17,7 +17,7 @@ export const QuestionCard = props => {
     const questionTypes = {
         boolean: boolean( props.quizType, props.questionId, props.handleQuestionChange, props.answers),
         multipleChoice: multipleChoice( props.quizType, props.questionId, props.handleAddAnswer, props.answers),
-        openEnded: openEnded( props.quizType, props.questionId, props.handleQuestionChange, props.answers),
+        openEnded: openEnded( props.quizType, props.questionId, props.handleAddAnswer, props.answers),
         chooseMultiple: chooseMultiple( props.quizType, props.questionId, props.handleQuestionChange, props.answers),
     }
 
@@ -26,7 +26,6 @@ export const QuestionCard = props => {
             <div>
                 <textarea placeholder='question' onChange={ (event) =>  props.handleQuestionChange(event.target.value, props.questionId)}/>
             </div>
-            {console.log('questioncard',props)}
             {props.inputType ? questionTypes[props.inputType] : null}
 
         </div>

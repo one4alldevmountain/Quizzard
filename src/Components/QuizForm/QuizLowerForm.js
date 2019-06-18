@@ -5,29 +5,163 @@ import { QuestionCard } from './QuestionCard';
 
 class QuizLowerForm extends Component{
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
 
 
         this.state = {
             quiz: {
                 questions: [
                     {
-                        questionContent: 'test comment',
+                        questionContent: '',
                         answers: [
                             {
-                                answerContent: 'this is a test answer',
-                                isCorrect: true,
+                                answerContent: '',
                             }
                         ]
                     }
                 ],
 
-                categories: [],
             },
 
-            typesAreValid: false,
+            // typesAreValid: false,
         }
+        // this.constructStateSkeletonFromQuizType(props.quizType);
+    }
+    constructStateSkeletonFromQuizType = (quizType) => {
+        
+                switch(quizType){
+                    case 'graded':
+                        this.setState(prevState => {
+                            return{
+                                ...prevState,
+                                questions: [
+                                    {
+                                        questionContent: '',
+                                        answers: [
+                                            {
+                                                answerContent: '',
+                                            }
+    
+                                        ],
+                                        correctAnswers: [
+    
+                                        ],
+    
+                                    }
+                                ]
+                            }
+                        })
+                        break;
+                    case 'survey':
+                            this.setState(prevState => {
+                                return{
+                                    ...prevState,
+                                    questions: [
+                                        {
+                                            questionContent: '',
+                                            answers: [
+                                                {
+                                                    answerContent: '',
+                                                }
+        
+                                            ],
+                                            
+        
+                                        }
+                                    ]
+                                }
+                            })
+                        break;
+                    case 'sorted':
+                            this.setState(prevState => {
+                                return{
+                                    ...prevState,
+                                    categories: [],
+                                    questions: [
+                                        {
+                                            questionContent: '',
+                                            category: '',
+                                            answers: [
+                                                {
+                                                    answerContent: '',
+                                                }
+        
+                                            ],
+                                            
+        
+                                        }
+                                    ]
+                                }
+                            })
+                        break;
+                }
+            }
+            // constructStateSkeletonFromQuizType = (quizType) => {
+            //     switch(quizType){
+            //         case 'graded':
+            //             this.state = {
+            //                 quiz: {
+            //                     questions: [
+            //                         {
+            //                             questionContent: '',
+            //                             answers: [
+            //                                 {
+            //                                     answerContent: '',
+            //                                 }
+            //                             ],
+            //                             correctAnswers: [],
+            //                         }
+            //                     ],
+                
+            //                 },
+            //             }
+            //             break;
+            //         case 'survey':
+            //                 this.state = {
+            //                     quiz: {
+            //                         questions: [
+            //                             {
+            //                                 questionContent: '',
+            //                                 answers: [
+            //                                     {
+            //                                         answerContent: '',
+            //                                     }
+            //                                 ],
+            //                             }
+            //                         ],
+                    
+            //                     },
+            //                 }
+            //             break;
+            //         case 'sorted':
+            //                 this.state = {
+            //                     quiz: {
+            //                         categories: [],
+            //                         questions: [
+            //                             {
+            //                                 questionContent: '',
+            //                                 category: '',
+            //                                 answers: [
+            //                                     {
+            //                                         answerContent: '',
+            //                                     }
+            //                                 ],
+            //                                 correctAnswers: [],
+            //                             }
+            //                         ],
+                    
+            //                     },
+            //                 }
+            //             break
+            //     }
+            // }
+    componentWillMount(){
+        this.constructStateSkeletonFromQuizType(this.props.quizType)
+    }
+    componentWillReceiveProps(){
+        console.log(this.props)
+        this.constructStateSkeletonFromQuizType(this.props.quizType);
     }
     
 
@@ -39,7 +173,6 @@ class QuizLowerForm extends Component{
 
 
     handleQuestionChange = (content, index) => {
-        console.log(index)
         this.setState((previousState) => {
             let questions = previousState.quiz.questions.slice(0);
             questions[index]['questionContent'] = content;
@@ -55,61 +188,97 @@ class QuizLowerForm extends Component{
         })
 
     }
-    // handleAnswerChange = () => {
-    //     switch()
-    // }
-    handleAddAnswer = (questionIndex) => {
-        this.setState((previousState) => {
-            let questions = previousState.quiz.questions.slice(0);
-            questions[questionIndex]['answers'] = [
-                ...previousState.quiz.questions[questionIndex]['answers'],
-                 {
-                     answerContent: '',
 
-                 }
-                ];
+
+
+
+
+
+    handleAddAnswer = (
+        options = {
+            questionIndex: null,
+            answerIndex: null,
+            newAnswer: '',
+            quizType: '',
+            isCorrect: false,
+            category: '',
+
+        }
+        ) => {
+            const {
+                questionIndex,
+                newAnswer,
+                quizType,
+                isCorrect,
+                category,
+                answerIndex
+            } = options;
+
+
             
-            return{
-                ...previousState,
-                quiz: {
-                    ...previousState.quiz,
-                    questions: questions,
+            if(newAnswer){
+                this.setState((previousState) => {
+                    let questions = previousState.quiz.questions.slice(0);
+                    questions[questionIndex]['answers'][answerIndex] = {
+                        ...previousState.quiz.questions[questionIndex]['answers'][answerIndex],
+                        answerContent: newAnswer,
+                        
+                    };
+                        
+                
+                switch(quizType){
+                    case 'survey': 
+                    break;
+
+                    case 'graded': 
+                    questions[questionIndex]['isCorrect'] = isCorrect;
+                    break;
+                    case 'sorted':
+                        questions[questionIndex]['category'] = category;
+                        break;
+                    }
+                    return{
+                        ...previousState,
+                        quiz: {
+                            ...previousState.quiz,
+                            questions: questions,
+                            
+                        }
+                    }
                     
+                })
+                }else{
+
+                    this.setState((previousState) => {
+                        let questions = previousState.quiz.questions.slice(0);
+                        questions[questionIndex]['answers'] = [
+                            ...previousState.quiz.questions[questionIndex]['answers'],
+                            {
+                                answerContent: newAnswer,
+                                
+                            }
+                        ];
+    
+                        return{
+                        ...previousState,
+                        quiz: {
+                            ...previousState.quiz,
+                            questions: questions,
+                            
+                        }
+                    }
+                })
                 }
-            }
-        })
+
 
     }
+
 
     
    
 
-    // quizTypeSpecificHead = (quizType) => {
-    //     let quizTypeSpecificJsx;
-    //     switch(quizType){
-    //         case'sorted':
-    //             quizTypeSpecificJsx = (
-    //                 <div>
-    //                     categories
-    //                     <input type='text'/>
-    //                 </div>
-    //             )
-    //             break;
-    //         case 'grade':
-    //             break;
-    //         case 'survey':
-    //             break;
-    //     }
-    //     return(
-    //         <div>
-    //             <h1>{quizType}</h1>
-                
-    //             {quizTypeSpecificJsx}
-    //         </div>
-    //     )
-    // }
+  
     formConstructor = (quizType, inputType, questions) => {
-        console.log(this.props, 'props')
 
         if(questions){
             
@@ -142,7 +311,7 @@ class QuizLowerForm extends Component{
     }
 
 
-    handleAddQuestion = () => {
+    handleAddQuestion = (quizType, inputType) => {
         this.setState((prevState) => {
             return(
                 {
@@ -164,20 +333,16 @@ class QuizLowerForm extends Component{
             )
         })
     }
-    incrementId = () => {
-
-    }
 
     
 
     
     render(){
-        console.log(this.state)
         
         return(
             <div>
                 {this.formConstructor(this.props.quizType, this.props.inputType, this.state.quiz.questions)}
-                {this.state.typesAreValid ? this.questions() : null}
+                {JSON.stringify(this.state)}
                 {/* {this.props.inputType ? this.formMaker()[this.props.quizType][this.props.inputType]: null } */}
                 <button onClick={() => this.handleAddQuestion()}>
                     add question
