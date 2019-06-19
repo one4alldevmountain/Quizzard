@@ -9,14 +9,21 @@ export const openEnded = ( quizType, questionId, handleChangeCb) => {
         </div>
     )
 }
-    export const boolean = ( quizType, questionId, handleChangeCb) => {
+export const chooseMultiple = ( quizType, questionId, handleChangeCb) => {
+    return(
+        <div>
+            <button>add answer</button>
+        </div>
+    )
+}
+export const boolean = ( quizType, questionId, handleChangeCb) => {
         return(
             <div>
                 
             </div>
         )
-    }
-    export const multipleChoice = ( quizType, questionIndex, handleChangeCb, answers) => {
+}
+    export const multipleChoice = ( quizType, questionIndex, callBack, answers) => {
         let quizTypeDependantJsx;
         const mappedAnswers = answers.map( (answer, index) => {
             console.log(answer)
@@ -37,13 +44,16 @@ export const openEnded = ( quizType, questionId, handleChangeCb) => {
                     <input 
                         type='text' 
                         value={answer.answerContent} 
-                        onChange={(event) => handleChangeCb({
+                        onChange={(event) => callBack({
                             questionIndex,
                             answerIndex: index,
                             newAnswer: event.target.value,
                         })}
                         />
-                        <div onChange={e => console.log(e.target.value)}>
+                        <div 
+                            onChange={e => {
+
+                            }}>
 
                             {quizTypeDependantJsx}
                         </div>
@@ -56,19 +66,12 @@ export const openEnded = ( quizType, questionId, handleChangeCb) => {
         return(
             <div>
                 {mappedAnswers}
-                <button onClick={() => handleChangeCb({
+                <button onClick={() => callBack({
                     questionIndex,
                     })}>add answer
                 </button>
             </div>
         )
     }  
-    export const chooseMultiple = ( quizType, questionId, handleChangeCb) => {
-        return(
-            <div>
-                <button>add answer</button>
-            </div>
-        )
-    }
 
 

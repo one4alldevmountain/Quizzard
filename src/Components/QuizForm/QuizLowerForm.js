@@ -291,7 +291,7 @@ class QuizLowerForm extends Component{
     
                             <div key={index}>
                                 <QuestionCard  
-                                    questionId={index} 
+                                    questionIndex={index} 
                                     quizType={quizType} 
                                     inputType={inputType} 
                                     handleQuestionChange={this.handleQuestionChange} 
