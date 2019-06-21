@@ -38,20 +38,15 @@ class QuizFormContainer extends Component{
         this.setState({
             [whatToUpdate]: value,
         });
-        if(this.state[whatToUpdate] === 'quizType'){
-            if(this.state.inputType){
-                this.setState({
-                    inputsAreValid: true,
-                })
-            }
+        
+        const otherType = whatToUpdate === 'quizType' ? 'inputType' : 'quizType';
+
+        if(this.state[otherType] && value){
+            this.setState({inputsAreValid: true})
+            
         }
         else{
-            if(this.state.quizType){
-                this.setState({
-                    inputsAreValid: true,
-                })
-            }
-
+            this.setState({inputsAreValid: false})
         }
         this.setState({
             quiz: {
@@ -84,7 +79,7 @@ class QuizFormContainer extends Component{
     }
     handleAnswerChange = (content, questionIndex, answerIndex) => {
         this.setState(prevState => {
-            let questions = prevState.quiz.questions;
+            let questions = prevState.quiz.questions.slice(0);
             console.log(answerIndex)
             questions[questionIndex].answers[answerIndex].answerContent = content;
 
@@ -103,14 +98,10 @@ class QuizFormContainer extends Component{
         })
     }
     checkInputsValidity = () => {
-                if(this.state.quizType && this.state.inputType){
-                    this.setState({
-                        inputsAreValid: true,
-                    });
+                if(this.state.quizType !== '' && this.state.inputType !== ''){
+                    return true;
                 }else{
-                    this.setState({
-                        inputsAreValid: false,
-                    });
+                    return false;
                 };
     }
 
@@ -187,6 +178,72 @@ class QuizFormContainer extends Component{
             categoryInput: '',
         })
     }
+    handleAddCorrectAnswer = (questionIndex, answerIndex, inputType) => {
+        if(!this.state.quiz.questions[questionIndex].correctAnswers){
+            this.setState(prevState => {
+                const questions = prevState.quiz.questions.slice(0);
+                questions[questionIndex].correctAnswers = [];
+
+                return {
+                    ...prevState,
+                    quiz: {
+                        ...prevState.quiz,
+                        questions: questions,
+                    }
+                }
+            })
+        }
+        console.log(questionIndex)
+        console.log(this.state.quiz.questions[questionIndex])
+        const indexOfAnswer = this.state.quiz.questions[questionIndex].correctAnswers ? this.state.quiz.questions[questionIndex].correctAnswers.findIndex(answer => {
+            return answer === answerIndex;
+        }): null;
+
+        if(indexOfAnswer !== -1){
+
+            if(inputType === 'multipleChoice' || inputType === 'boolean'){
+                this.setState(prevState => {
+                    const questions = prevState.quiz.questions.slice(0);
+                    questions[questionIndex].correctAnswers = [answerIndex];
+    
+                    return {
+                        ...prevState,
+                        quiz: {
+                            ...prevState.quiz,
+                            questions: questions,
+                        }
+                    }
+                })
+            }
+            else{
+                this.setState(prevState => {
+                    const questions = prevState.quiz.questions.slice(0);
+                    questions[questionIndex].correctAnswers = [...questions[questionIndex].correctAnswers, answerIndex];
+    
+                    return {
+                        ...prevState,
+                        quiz: {
+                            ...prevState.quiz,
+                            questions: questions,
+                        }
+                    }
+                })
+            }
+        }
+        else{
+            this.setState(prevState => {
+                const questions = prevState.quiz.questions.slice(0);
+                questions[questionIndex].correctAnswers.slice(indexOfAnswer, 1);
+                return {
+                    ...prevState,
+                    quiz: {
+                        ...prevState.quiz,
+                        questions: questions,
+                    }
+                }
+            })
+        }
+    }
     displayQuestions = (quizType, inputType, questions) => {
 
         if(questions){
@@ -208,6 +265,7 @@ class QuizFormContainer extends Component{
                                     handleQuestionChange={this.handleQuestionChange} 
                                     handleAnswerChange={this.handleAnswerChange}
                                     handleAddAnswer={this.handleAddAnswer}
+                                    handleAddCorrectAnswer={this.handleAddCorrectAnswer}
 
                                     />
                             </div>
