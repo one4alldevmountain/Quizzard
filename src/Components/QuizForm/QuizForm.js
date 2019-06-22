@@ -334,12 +334,14 @@ class QuizForm extends Component{
                     <div className="test_type">
                     Test Type
                     </div>
+                    <div className="box">
                     <select value={this.state.quizType} onChange={event => this.handleUpperTypeChange(event.target.value, 'quizType' )}>
                         <option value="">Please choose an option.</option>
                         <option value="graded">Graded</option>
                         <option value="sorted">Sorted</option>
                         <option value="survey">Survey</option>
                     </select>
+                    </div>
                     </div>
                 </label>
                 <label>
