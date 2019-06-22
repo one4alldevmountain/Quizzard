@@ -12,12 +12,12 @@ import { Switch, Route } from 'react-router-dom';
 export default (
     <Switch>
        <Route component={LandingView} exact path="/" />
-       <Route component={GetQuizByPin} path="/Pin" />
-       <Route component={RegisterView} path="/Register" />
-       <Route component={LoginView} path="/Login" />
-       <Route component={HomeView} path="/Homepage" />
-       <Route component={SearchView} path="/Search" />
-       <Route component={QuizForm} path="/Form" />
+       <Route component={GetQuizByPin} path="/pin" />
+       <Route component={RegisterView} path="/register" />
+       <Route component={LoginView} path="/login" />
+       <Route component={HomeView} path="/homepage" />
+       <Route component={SearchView} path="/search" />
+       <Route component={QuizForm} path="/form" />
     </Switch>
 
 )

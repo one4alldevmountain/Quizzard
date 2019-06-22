@@ -1,29 +1,46 @@
 const express = require ('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-require('dotenv').config({path: __dirname + '/.env'});
+require('./auth/passport.auth');
+require('dotenv').config({path: `${__dirname}/.env`});
+
+
+//requiring db stuff
 const mongoose = require('mongoose');
 
-
+const User = require('./db/models/User.model');
+//requiring middleware 
 const { PORT, DB_CONNECTION_STRING } = process.env;
+
+const { decorate } = require('./middleware/global.middleware');
+
+const { addRoutes} = require('./routers/routers');
+
+
+mongoose.connect(DB_CONNECTION_STRING)
+    .then(() => {
+        console.log('connected to the database');
+    })
+    .catch(err => {
+        console.error('Error connecting to the database');
+        console.error(err);
+    });
 
 
 const app = express();
-app.use(cors());
-app.use(express.json());
-app.use(bodyParser.json());
 
-mongoose.connect(DB_CONNECTION_STRING)
-.then(() => {
-    console.log('connected to the db');
-}).catch(err => {
-    console.error('error connecting to the db');
-    console.log(err);
-});
+
+
+decorate(app);
+
+addRoutes(app);
+
+
+
 
 // app.get('/api/users',)
 // app.get('/api/quizzes', )
 // app.get('/api/quiz/:id', )
+
+
 
 
 app.listen(PORT, () => {
