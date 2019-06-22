@@ -5,15 +5,7 @@ import './Login.scss';
 
 
 
-
-
-
-
-var Register = ({ loginUser }) => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-
-
+const Login = (props) => {
     return (
         <div>
             <Link to="/">
@@ -77,4 +69,4 @@ var Register = ({ loginUser }) => {
 
 
 
-export default Register;
+export default Login;
