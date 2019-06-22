@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { QuestionCard } from './QuestionCard';
-import QuizLowerForm from './QuizLowerForm';
-
+import axios from 'axios';
 
 
 class QuizFormContainer extends Component{
@@ -97,30 +96,27 @@ class QuizFormContainer extends Component{
             categoryInput: value,
         })
     }
-    checkInputsValidity = () => {
-                if(this.state.quizType !== '' && this.state.inputType !== ''){
-                    return true;
-                }else{
-                    return false;
-                };
-    }
+    
 
     handleAddQuestion = (quizType) => {
         let questionsArray = this.state.quiz.questions.slice(0);
-        if(quizType === 'sorted'){
+       
+        if(this.state.inputType === 'boolean'){
             questionsArray.push({
-                questionContent: '',
-                category: '',
-                answers: []
+                answers: [{answerContent: 'True', category: ''}, {answerContent: 'False' , category: ''}],
+                correctAnswers: [],
             });
         }
         else{
             questionsArray.push({
                 questionContent: '',
-                answers: []
+                answers: [],
+                correctAnswers: [],
             });
-        }
 
+        }
+        
+       
         this.setState(prevState => {
             return {
                 ...prevState,
@@ -137,18 +133,11 @@ class QuizFormContainer extends Component{
                 ...prevState.quiz.questions,
 
             ]
-            console.log(JSON.stringify(questions, questionIndex))
-            if(this.state.quizType === 'sorted')
             questions[questionIndex].answers.push({
                 answerContent: '',
                 category: '',
                 
             })
-            else{
-                questions[questionIndex].answers.push({
-                    answerContent: '',
-                })
-            }
             
             return {
                 ...prevState,
@@ -178,33 +167,34 @@ class QuizFormContainer extends Component{
             categoryInput: '',
         })
     }
-    handleAddCorrectAnswer = (questionIndex, answerIndex, inputType) => {
-        if(!this.state.quiz.questions[questionIndex].correctAnswers){
-            this.setState(prevState => {
-                const questions = prevState.quiz.questions.slice(0);
-                questions[questionIndex].correctAnswers = [];
+    handleAddAnswerCategory = (questionIndex, answerIndex, category) => {
+        this.setState(prevState => {
+            const questions = prevState.quiz.questions.slice(0);
+            questions[questionIndex].answers[answerIndex].category = category;
 
-                return {
-                    ...prevState,
-                    quiz: {
-                        ...prevState.quiz,
-                        questions: questions,
-                    }
+            return {
+                ...prevState,
+                quiz: {
+                    ...prevState.quiz,
+                    questions: questions,
                 }
-            })
-        }
-        console.log(questionIndex)
-        console.log(this.state.quiz.questions[questionIndex])
+            }
+        })
+    }
+    
+    handleAddCorrectAnswer = (questionIndex, answerIndex, inputType) => {
+        
         const indexOfAnswer = this.state.quiz.questions[questionIndex].correctAnswers ? this.state.quiz.questions[questionIndex].correctAnswers.findIndex(answer => {
             return answer === answerIndex;
         }): null;
 
-        if(indexOfAnswer !== -1){
+        if(indexOfAnswer === -1){
 
             if(inputType === 'multipleChoice' || inputType === 'boolean'){
                 this.setState(prevState => {
                     const questions = prevState.quiz.questions.slice(0);
                     questions[questionIndex].correctAnswers = [answerIndex];
+                    console.log(questions)
     
                     return {
                         ...prevState,
@@ -218,8 +208,9 @@ class QuizFormContainer extends Component{
             else{
                 this.setState(prevState => {
                     const questions = prevState.quiz.questions.slice(0);
+
                     questions[questionIndex].correctAnswers = [...questions[questionIndex].correctAnswers, answerIndex];
-    
+                    console.log('questions', questions)
                     return {
                         ...prevState,
                         quiz: {
@@ -232,8 +223,9 @@ class QuizFormContainer extends Component{
         }
         else{
             this.setState(prevState => {
+                console.log('hit')
                 const questions = prevState.quiz.questions.slice(0);
-                questions[questionIndex].correctAnswers.slice(indexOfAnswer, 1);
+                questions[questionIndex].correctAnswers.splice(indexOfAnswer, 1);
                 return {
                     ...prevState,
                     quiz: {
@@ -244,6 +236,22 @@ class QuizFormContainer extends Component{
             })
         }
     }
+    handleSubmitForm = (event) => {
+        event.preventDefault();
+        const {
+            quiz,
+            inputType,
+            quizType,
+            whoToEmail,
+        } = this.state;
+        axios.post('api/quiz', {
+            quiz,
+            inputType,
+            quizType,
+            whoToEmail,
+
+        });
+    }
     displayQuestions = (quizType, inputType, questions) => {
 
         if(questions){
@@ -253,8 +261,6 @@ class QuizFormContainer extends Component{
                     {questions.map((question, index) => {
                         return(
                             <div key={index}>
-                                {JSON.stringify(question)}
-                                {console.log(this.state.quiz.questions[0], index)}
                                 <div key={index}>
                                 <QuestionCard  
                                     questionIndex={index} 
@@ -266,6 +272,7 @@ class QuizFormContainer extends Component{
                                     handleAnswerChange={this.handleAnswerChange}
                                     handleAddAnswer={this.handleAddAnswer}
                                     handleAddCorrectAnswer={this.handleAddCorrectAnswer}
+                                    handleAddAnswerCategory={this.handleAddAnswerCategory}
 
                                     />
                             </div>
@@ -288,6 +295,31 @@ class QuizFormContainer extends Component{
 
 
     render(){
+        const availableOptions = {
+            graded: [
+                'boolean',
+                'multipleChoice',
+                'chooseMultiple',
+            ],
+            sorted: [
+                'boolean',
+                'multipleChoice',
+                'chooseMultiple',
+
+            ],
+            survey: [
+                'boolean',
+                'multipleChoice',
+                'chooseMultiple',
+                'openEnded',
+            ]
+        }
+
+        const inputType = this.state.quizType ? 
+        availableOptions[this.state.quizType].map(option => {
+            return <option value={option}>{option}</option>
+        }): null
+        
         
         
         return(
@@ -295,7 +327,7 @@ class QuizFormContainer extends Component{
                 <label>
                     Test Type
                     <select value={this.state.quizType} onChange={event => this.handleUpperTypeChange(event.target.value, 'quizType' )}>
-                        <option value="">------Please choose an option.------</option>
+                        <option value="">Please choose an option.</option>
                         <option value="graded">Graded</option>
                         <option value="sorted">Sorted</option>
                         <option value="survey">Survey</option>
@@ -304,23 +336,28 @@ class QuizFormContainer extends Component{
                 <label>
                 Input Type
                 <select value={this.state.inputType} onChange={event => this.handleUpperTypeChange(event.target.value, 'inputType' )}>
-                    <option value="">------Please choose an option.------</option>
-                    <option value="boolean">True/False</option>
-                    <option value="multipleChoice">Multiple Choice</option>
-                    <option value="chooseMultiple">Choose Multiple</option>
-                    {/* <option value="fillInTheBlank">Fill in the blank</option> */}
-                    <option value="openEnded">Open Ended</option>
+                    
+                    {this.state.quizType ? <option>Please select an input type.</option>: <option>Please select a Quiz type first.</option> }
+                    {inputType}
                 </select>
                 </label>
-                
-                {JSON.stringify(this.state)};
-
                 <div>
-                    upperForm
+                    <label>
+                        whoToEmail 
+                        Quiz Owner<input type='checkbox' value='quizOwner' name='whoToEmail'/>
+                        Quiz Taker<input type='checkbox' value='quizTaker' name='whoToEmail'/>
+                        Custom<input type='checkbox' value='custom' name='whoToEmail'/>
+                    </label>
+                    
                 </div>
+                
+                
+
+                
                 <hr/>
-                { this.state.inputsAreValid ? <div>
-                    LowerForm
+                { 
+                    this.state.inputsAreValid ? 
+                <div>
                     <h1>{this.state.quizType}</h1>
 
                         {
@@ -337,16 +374,22 @@ class QuizFormContainer extends Component{
                                 >
                                     +
                                 </button>
+                                <br/>
+                                {this.state.quiz.categories.map(category => {
+                                    return <div>{category}</div>
+                                })}
                             </div>: null
                           }
                         {this.displayQuestions(this.state.quizType, this.state.inputType, this.state.quiz.questions )}
                     <button onClick={ () => this.handleAddQuestion(this.state.quizType)}>add question</button>
                     
                     <div>
-                        <button type='submit'> Create </button>
+                        <button type='submit' onClick={(event) => this.handleSubmitForm(event)}> Create Quiz </button>
 
                     </div>
-                </div> : null}
+                </div> :
+                 null
+                 }
             </div>
         )
     }

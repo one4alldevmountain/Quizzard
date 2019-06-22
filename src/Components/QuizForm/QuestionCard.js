@@ -13,22 +13,24 @@ import React from 'react';
             questionIndex: null,
             addAnswerCb: null,
             addCorrectAnswerCb: null,
+            addAnswerCategoryCb: null,
             changeAnswerCb: null,
             quizType: '',
             inputType: '',
         }) => {
         const correctInput = (quizType, inputType, answerIndex) => {
-            console.log(inputType)
             switch(quizType){
                 case 'graded':
+                    console.log('hi')
                     if(inputType === 'chooseMultiple'){
                         return(
                             <div>
 
                                 <input
                                 type='checkbox'
-                                name='correctAnswer'
+                                name={'correctAnswer' + options.questionIndex}
                                 value={answerIndex}
+                                onChange={() => options.addCorrectAnswerCb(options.questionIndex, answerIndex, options.inputType)}
                                 />
                                 <span>{answerIndex}</span>
                             </div>
@@ -38,7 +40,7 @@ import React from 'react';
                         return(
                             <input 
                                 type='radio'
-                                name='correctAnswer'
+                                name={'correctAnswer' + options.questionIndex}
                                 value={answerIndex}
                                 onChange={() => options.addCorrectAnswerCb(options.questionIndex, answerIndex, options.inputType)}
                                 />
@@ -56,7 +58,7 @@ import React from 'react';
                     })
 
                     return(
-                        <select>
+                        <select value={options.answers.category} onChange={(event) => options.addAnswerCategoryCb(options.questionIndex, answerIndex, event.target.value )}>
                             <option>select a category</option>
                             {categoryOptions}
                         </select>
@@ -77,6 +79,7 @@ import React from 'react';
                         type='text'
                         placeholder='enter answer here'
                         value={answer.answerContent}
+                        readOnly={options.inputType === 'boolean'}
                         />
                     {correctInput(options.quizType, options.inputType, index,)}
 
@@ -123,12 +126,15 @@ export const QuestionCard = props => {
                 categories: props.categories,
                 questionIndex: props.questionIndex,
                 addAnswerCb: props.handleAddAnswer,
+                addAnswerCategoryCb: props.handleAddAnswerCategory,
                 changeAnswerCb: props.handleAnswerChange,
                 addCorrectAnswerCb: props.handleAddCorrectAnswer,
                 inputType: props.inputType,
                 quizType: props.quizType,
+
                 
                 })}
+                <hr/>
 
         </div>
     )
