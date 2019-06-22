@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { QuestionCard } from './QuestionCard';
+import HeaderView from '../Header/HeaderView';
+import './QuizForm.scss'
 import axios from 'axios';
 
 
@@ -324,31 +326,45 @@ class QuizForm extends Component{
         
         return(
             <div>
+                <div className="header">
+                    <HeaderView />
+                </div>
                 <label>
+                    <div className="quiz_form_container">
+                    <div className="test_type">
                     Test Type
+                    </div>
                     <select value={this.state.quizType} onChange={event => this.handleUpperTypeChange(event.target.value, 'quizType' )}>
                         <option value="">Please choose an option.</option>
                         <option value="graded">Graded</option>
                         <option value="sorted">Sorted</option>
                         <option value="survey">Survey</option>
                     </select>
+                    </div>
                 </label>
                 <label>
+                    <div className="quiz_form_container">
+                    <div className="input_type">
                 Input Type
                 <select value={this.state.inputType} onChange={event => this.handleUpperTypeChange(event.target.value, 'inputType' )}>
                     
                     {this.state.quizType ? <option>Please select an input type.</option>: <option>Please select a Quiz type first.</option> }
                     {inputType}
                 </select>
+                </div>
+                </div>
                 </label>
                 <div>
+                    <div className="quiz_form_container">
+                    <div className="email_form">
                     <label>
                         whoToEmail 
                         Quiz Owner<input type='checkbox' value='quizOwner' name='whoToEmail'/>
                         Quiz Taker<input type='checkbox' value='quizTaker' name='whoToEmail'/>
                         Custom<input type='checkbox' value='custom' name='whoToEmail'/>
                     </label>
-                    
+                    </div>
+                    </div>
                 </div>
                 
                 
@@ -390,7 +406,9 @@ class QuizForm extends Component{
                 </div> :
                  null
                  }
+                 
             </div>
+            
         )
     }
 
