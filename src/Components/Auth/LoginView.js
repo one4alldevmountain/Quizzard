@@ -5,7 +5,7 @@ import './Login.scss';
 
 
 
-var Register = (props) => {
+const Login = (props) => {
     return (
         <div>
             <Link to="/">
@@ -62,4 +62,4 @@ var Register = (props) => {
 
 
 
-export default Register;
+export default Login;

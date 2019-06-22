@@ -3,10 +3,6 @@ import routes from './routes';
 import './App.css';
 import { HashRouter } from 'react-router-dom';
 
-
-
-
-
 function App() {
   return (
 

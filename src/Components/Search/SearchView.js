@@ -26,7 +26,7 @@ class SearchView extends Component {
       <div>
         <HeaderView />
         <center>
-          <h3>SEARCh PAGE</h3>
+          <h3>SEARCH PAGE</h3>
         </center>
         <center>
           <input
