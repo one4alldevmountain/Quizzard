@@ -2,21 +2,12 @@
 const bcrypt = require('bcrypt');
 const express = require('express');
 require("dotenv").config();
-const bodyParser = require('body-parser');
-const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 //setup express server
 //configure app to use sessions and passport
 const app = express();
-app.use(bodyParser.json());
-app.use(express.json());
-app.use( session({
-    secret: 'secretone',
-    resave: false,
-    saveUninitialized: false
-}));
 //Always used with passport
 app.use(passport.initialize());
 //always used with session
@@ -92,16 +83,3 @@ passport.deserializeUser((id, done) => {
         });
 });
 
-//login endpoint, calls authenticate on passport. 
-app.post('/login', passport.authenticate('login'), (req, res) => {
-    return res.send({message: 'Authenticated!', user: req.user});
-});
-//register endpoint, 
-app.post('/register', passport.authenticate('register'), (req, res) => {
-    return res.send({message: 'Logged In!', user: req.user})
-});
-//logout endpoint,
-app.get('/logout', (req, res) => {
-    req.logout();
-    res.sendStatus(200);
-});
