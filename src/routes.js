@@ -5,7 +5,7 @@ import RegisterView from './Components/Auth/RegisterView';
 import LoginView from './Components/Auth/LoginView';
 import HomeView from './Components/Home/HomeView';
 import SearchView from './Components/Search/SearchView';
-import FormView from './Components/Form/FormView';
+import QuizForm from './Components/QuizForm/QuizForm';
 import { Switch, Route } from 'react-router-dom';
 
 
