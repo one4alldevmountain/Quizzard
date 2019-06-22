@@ -1,1 +1,2 @@
-export {default as QuizFormView } from './QuizForm/QuizFormView';
+
+// export {default as QuizForm } from './QuizForm/QuizForm';

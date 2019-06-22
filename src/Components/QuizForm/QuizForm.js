@@ -3,7 +3,7 @@ import { QuestionCard } from './QuestionCard';
 import axios from 'axios';
 
 
-class QuizFormContainer extends Component{
+class QuizForm extends Component{
 
 
 
@@ -397,4 +397,4 @@ class QuizFormContainer extends Component{
 }
 
 
-export default QuizFormContainer;
+export default QuizForm;
