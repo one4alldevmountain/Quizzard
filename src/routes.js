@@ -20,7 +20,7 @@ export default (
        <Route component={LoginView} path="/login" />
        <Route component={HomeView} path="/homepage" />
        <Route component={SearchView} path="/search" />
-       <Route component={FormView} path="/form" />
+       <Route component={QuizForm} path="/form" />
     </Switch>
 
 )
