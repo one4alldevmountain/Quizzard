@@ -1,4 +1,5 @@
 const express = require ('express');
+require('./auth/passport.auth');
 require('dotenv').config({path: `${__dirname}/.env`});
 
 
@@ -29,15 +30,6 @@ mongoose.connect(process.env.DB_CONNECTION_STRING)
 
 
 const app = express();
-
-const newUser = new User({
-    username: 'justus',
-    password: 'password',
-    email: 'justusmray@gmail.com',
-});
-
-newUser.save();
-
 
 
 
