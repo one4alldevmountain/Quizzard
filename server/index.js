@@ -8,16 +8,14 @@ const mongoose = require('mongoose');
 
 const User = require('./db/models/User.model');
 //requiring middleware 
+const { PORT, DB_CONNECTION_STRING } = process.env;
 
 const { decorate } = require('./middleware/global.middleware');
 
 const { addRoutes} = require('./routers/routers');
 
-const { PORT } = process.env;
 
-
-
-mongoose.connect(process.env.DB_CONNECTION_STRING)
+mongoose.connect(DB_CONNECTION_STRING)
     .then(() => {
         console.log('connected to the database');
     })
@@ -25,8 +23,6 @@ mongoose.connect(process.env.DB_CONNECTION_STRING)
         console.error('Error connecting to the database');
         console.error(err);
     });
-
-
 
 
 const app = express();
@@ -43,11 +39,6 @@ addRoutes(app);
 // app.get('/api/users',)
 // app.get('/api/quizzes', )
 // app.get('/api/quiz/:id', )
-
-
-
-
-
 
 
 

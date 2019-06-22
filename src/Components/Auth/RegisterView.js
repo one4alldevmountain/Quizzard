@@ -5,7 +5,7 @@ import './Register.scss';
 
 
 
-var Register = (props) => {
+const Register = (props) => {
     return (
         <div>
             <Link to="/">
