@@ -1,1 +1,2 @@
-//https://github.com/Jmray/commentr/blob/master/src/components/index.js
+
+// export {default as QuizForm } from './QuizForm/QuizForm';
