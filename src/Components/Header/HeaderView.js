@@ -10,8 +10,7 @@ export default function HeaderView() {
             <img 
             className="logo-header"
             src={logo1}
-            />
-            <h1>HEADER</h1>
+            alt="LogoImage"/>
         </div>
     )
 }

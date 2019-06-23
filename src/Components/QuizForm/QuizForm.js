@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { QuestionCard } from './QuestionCard';
+import HeaderView from '../Header/HeaderView';
+import './QuizForm.scss'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
@@ -353,24 +355,39 @@ class QuizForm extends Component{
         
         return(
             <div>
+                <div className="header">
+                    <HeaderView />
+                </div>
                 <label>
+                    <div className="quiz_form_container">
+                    <div className="test_type">
                     Test Type
+                    </div>
+                    <div className="box">
                     <select value={this.state.quizType} onChange={event => this.handleUpperTypeChange(event.target.value, 'quizType' )}>
                         <option value="">Please choose an option.</option>
                         <option value="graded">Graded</option>
                         <option value="sorted">Sorted</option>
                         <option value="survey">Survey</option>
                     </select>
+                    </div>
+                    </div>
                 </label>
                 <label>
+                    <div className="quiz_form_container">
+                    <div className="input_type">
                 Input Type
                 <select value={this.state.inputType} onChange={event => this.handleUpperTypeChange(event.target.value, 'inputType' )}>
                     
                     {this.state.quizType ? <option>Please select an input type.</option>: <option>Please select a Quiz type first.</option> }
                     {inputType}
                 </select>
+                </div>
+                </div>
                 </label>
                 <div>
+                    <div className="quiz_form_container">
+                    <div className="email_form">
                     <label>
                         whoToEmail 
                         Quiz Owner  <input
@@ -386,7 +403,8 @@ class QuizForm extends Component{
                                         onChange={(event) => this.handleWhoToEmail(event.target.value)}
                                         />
                     </label>
-                    
+                    </div>
+                    </div>
                 </div>
                 
                 
@@ -428,7 +446,9 @@ class QuizForm extends Component{
                 </div> :
                  null
                  }
+                 
             </div>
+            
         )
     }
 
