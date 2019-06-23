@@ -14,13 +14,7 @@ function App() {
   return (
 
 
-<<<<<<< HEAD
-    <div className="App">
-      
-      QUIZZARD
-=======
     <div>
->>>>>>> master
       <HashRouter>
            {routes}
       </HashRouter>
