@@ -39,6 +39,83 @@ ApiRouter.post('/createquiz', (req, res) => {
 })
 
 
+ApiRouter.get('/quiz/:pin', (req, res) => {
+    res.send({
+        
+            whoToEmail: ['justusmray@gmail.com'],
+            categories: [
+                'griffindoor',
+                'hufflepuff',
+                'slytherin',
+                'ravenclaw',
+            ],
+            urlExtension: 'fasdfasdfasdf',
+            quizType: 'graded',
+            inputType: 'multipleChoice',
+            questions: [
+                {
+                    questionContent: 'lorem ipsum delor sit amet ',
+                    answers: [
+                        {
+                            answerContent: ' answer 1',
+                            category: '',
+                        },
+                        {
+                            answerContent: ' answer 2',
+                            category: '',
+                        },
+                        {
+                            answerContent: ' answer 3',
+                            category: '',
+                        },
+                    ],
+                    correctAnswers: [0],
+                },
+                {
+                    questionContent: 'random question 123 ',
+                    answers: [
+                        {
+                            answerContent: ' answer 1',
+                            category: '',
+                        },
+                        {
+                            answerContent: ' answer 2',
+                            category: '',
+                        },
+                        {
+                            answerContent: ' answer 3',
+                            category: '',
+                        },
+                    ],
+                    correctAnswers: [2],
+                },
+                    {
+                        questionContent: 'test question of the century',
+                        answers: [
+                            {
+                                answerContent: ' answer 1',
+                                category: '',
+                            },
+                            {
+                                answerContent: ' answer 2',
+                                category: '',
+                            },
+                            {
+                                answerContent: ' answer 3',
+                                category: '',
+                            },
+                        ],
+                        correctAnswers: [1],
+                    }
+                
+            ]
+        
+     
+     
+    })
+})
+
+
 module.exports = {
     ApiRouter,
 }

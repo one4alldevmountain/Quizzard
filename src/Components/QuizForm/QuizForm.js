@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { QuestionCard } from './QuestionCard';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 
 class QuizForm extends Component{
@@ -94,6 +95,28 @@ class QuizForm extends Component{
     handleCategoryInputChange = (value) => {
         this.setState({
             categoryInput: value,
+        })
+    }
+    handleWhoToEmail = (value) => {
+        this.setState(prevState => {
+            let whoToEmail = prevState.whoToEmail.slice(0);
+            if(whoToEmail.includes(value)){
+                whoToEmail = whoToEmail.filter(whoToEmail => {
+                   return whoToEmail !== value;
+                })
+            }
+            else{
+                whoToEmail = [
+                    ...prevState.whoToEmail,
+                    value
+                ]
+            }
+
+            return{
+                ...prevState,
+                whoToEmail,
+
+            }
         })
     }
     
@@ -238,6 +261,11 @@ class QuizForm extends Component{
     }
     handleSubmitForm = (event) => {
         event.preventDefault();
+
+        if(this.state.quiz.questions.length === 0 || this.state.whoToEmail.length === 0){
+            toast.error('You are missing some inputs')
+        }
+        
         const {
             quiz,
             inputType,
@@ -344,9 +372,18 @@ class QuizForm extends Component{
                 <div>
                     <label>
                         whoToEmail 
-                        Quiz Owner<input type='checkbox' value='quizOwner' name='whoToEmail'/>
-                        Quiz Taker<input type='checkbox' value='quizTaker' name='whoToEmail'/>
-                        Custom<input type='checkbox' value='custom' name='whoToEmail'/>
+                        Quiz Owner  <input
+                                        type='checkbox' 
+                                        value='quizOwner' 
+                                        name='whoToEmail'
+                                        onChange={(event) => this.handleWhoToEmail(event.target.value)}
+                                    />
+                        Quiz Taker  <input
+                                        type='checkbox' 
+                                        value='quizTaker' 
+                                        name='whoToEmail'
+                                        onChange={(event) => this.handleWhoToEmail(event.target.value)}
+                                        />
                     </label>
                     
                 </div>
