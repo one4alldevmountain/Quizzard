@@ -1,4 +1,5 @@
 const express = require('express');
+const shortid = require('shortid')
 const Quiz = require('../db/models/Quiz.model');
 
 
@@ -6,39 +7,50 @@ const Quiz = require('../db/models/Quiz.model');
 const ApiRouter = express.Router();
 
 
-ApiRouter.post('/createquiz', (req, res) => {
+ApiRouter.post('/quiz', (req, res) => {
+    const {
+        inputType,
+        quizType,
+        whoToEmail,
+        categories,
+        questions,
+
+    } = req.body
     const newQuiz = new Quiz({
-        whoToEmail: ['justusmray@gmail.com'],
-        inputType: 'boolean',
-        quizType: 'graded',
-        categories: [],
-        questions:[
-            {
-                answers: [{answerContent: "True", category: ""}, {answerContent: "False", category: ""}],
-                correctAnswers: [0],
-                questionContent: "test question",
-            },
-            {
-                answers: [{answerContent: "True", category: ""}, {answerContent: "False", category: ""}],
-                correctAnswers: [0],
-                questionContent: "test question2",
-            },
-            {
-                answers: [{answerContent: "True", category: ""}, {answerContent: "False", category: ""}],
-                correctAnswers: [1],
-                questionContent: "test question3",
-            },
-        ],
-        urlExtension: 'hiasdfthia',
+        
+        inputType,
+        quizType,
+        whoToEmail,
+        categories,
+        questions,
+        urlExtension: shortid.generate(),
 
     })
 
-    newQuiz.save();
+    newQuiz.save().then( () => {
 
-    res.send('created');
+        res.status(202).send('created')
+        }).catch(err => {
+        res.status(500).send(err)
+        })   
+})
+
+
+
+ApiRouter.get('/quiz/:pin', (req, res) => {
+    Quiz.findOne({urlExtension: req.params.pin }).then( quiz => {
+        res.status(200).send(quiz)
+    }
+    ).catch(err => {
+        res.status(500).send('error');
+    })
 })
 
 
 module.exports = {
     ApiRouter,
 }
+
+ApiRouter.post('/submit', (req, res) => {
+    
+})
