@@ -69,7 +69,7 @@ class TakeQuiz extends Component{
                     categories,
 
                 } = this.state
-                axios.post('/api/submitquiz', {
+                axios.post('http://localhost:7000/api/submitquiz', {
                     quizType,
                     inputType,
                     whoToEmail,
@@ -77,7 +77,10 @@ class TakeQuiz extends Component{
                     categories,
             
                 }).then( response => {
-                    toast.success('Completed')
+                    if(response.data === 'success'){
+                        toast.success('Completed')
+
+                    }
                     
                 }).catch(err => {
                     toast.error('Sorry there was an error')

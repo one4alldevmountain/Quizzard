@@ -56,7 +56,6 @@ const QuizCard = (props) => {
         return(
             <div key={index}>
                 <p>{answer.answerContent}{answerInput(props, index)}</p>
-                {index}
             </div>
         )
     })

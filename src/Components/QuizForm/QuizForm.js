@@ -272,11 +272,12 @@ class QuizForm extends Component{
             quizType,
             whoToEmail,
         } = this.state;
-        axios.post('api/quiz', {
-            quiz,
+        axios.post('http://localhost:7000/api/quiz', {
             inputType,
             quizType,
             whoToEmail,
+            categories: quiz.categories,
+            questions: quiz.questions,
 
         });
     }
