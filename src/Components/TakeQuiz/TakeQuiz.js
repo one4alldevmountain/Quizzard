@@ -18,7 +18,7 @@ class TakeQuiz extends Component{
                 categories: [],
                 whoToEmail: [],
 
-                openEndedInput: '',
+                openEndedInput: {},
 
 
             }
@@ -67,6 +67,7 @@ class TakeQuiz extends Component{
                     whoToEmail,
                     questions,
                     categories,
+                    openEndedInput
 
                 } = this.state
                 axios.post('http://localhost:7000/api/submitquiz', {
@@ -75,6 +76,7 @@ class TakeQuiz extends Component{
                     whoToEmail,
                     questions,
                     categories,
+                    openEndedInput
             
                 }).then( response => {
                     if(response.data === 'success'){
@@ -122,9 +124,15 @@ class TakeQuiz extends Component{
             
            
         }
-        handleOpenEndedInputChange = (value) => {
-            this.setState({
-                openEndedInput: value,
+        handleOpenEndedInputChange = (value, questionIndex) => {
+            
+            this.setState( prevState => {
+                let openEndedInput = prevState.openEndedInput;
+                openEndedInput[questionIndex] = value;
+                return{
+                    ...prevState,
+                    openEndedInput,
+                }
             })
         }
 
@@ -132,8 +140,6 @@ class TakeQuiz extends Component{
 
 
         render(){
-            console.log(this.props);
-            console.log(this.state)
 
             const questions = this.state.questions ? this.state.questions.map((question, questionIndex) => {
                return(
@@ -151,8 +157,8 @@ class TakeQuiz extends Component{
                             this.state.inputType === 'openEnded' ?
                             <textarea
                                 placeholder='Answer....'
-                                value={this.state.openEndedInput}
-                                onChange={(event) => this.handleOpenEndedInputChange(event.target.value  )}
+                                value={this.state.openEndedInput[questionIndex]}
+                                onChange={(event) => this.handleOpenEndedInputChange(event.target.value, questionIndex)}
                             >
 
                             </textarea> :

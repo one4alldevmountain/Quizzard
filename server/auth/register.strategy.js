@@ -8,31 +8,54 @@ const registerStrategy = new LocalStrategy(
         const {
             email
         } = req.body;
-        User.find()
-            .where('username', username)
-            .then(users => {
-            // if (users.length) {
-            //     done( 'Username already in use' );
-            // }
-                bcrypt.hash(password, 15, (err, hashedPassword) => {
-                    if(err) {
-                        return done('System failure');
+        let err= false;
+        if(!username || !password || !email){
+            err = true;
+            done('You must fill all fields')
+        }else{
+
+            User.findOne({'email': email}).then( user => {
+                if(user){
+                    err = true;
+                    done('Email already in use')
+                }
+            
+            }).then(() => {
+
+                User.findOne({'username': username})
+                    .then(user => {
+                    if (user) {
+                        err = true;
+                        done( 'Username already in use' );
                     }
-    
-                    const newUser = new User({
-                        username,
-                        password: hashedPassword,
-                        email,
-                    });
-    
-                    newUser.save();
-                
-                    delete newUser.password;
-                    done(null, newUser);
+                    return user
+                }).then(() => {
+                    if(!err){
+
+                        bcrypt.hash(password, 15, (err, hashedPassword) => {
+                            if(err) {
+                                return done('System failure');
+                            }
+            
+                            const newUser = new User({
+                                username,
+                                password: hashedPassword,
+                                email,
+                            });
+            
+                            newUser.save();
+                        
+                            delete newUser.password;
+                            done(null, {username: newUser.username, email: newUser.email, _id: newUser._id});
+                        })
+                    }
                 })
-            }).catch(err => {
-                console.error( err, 'hit');
+                    
+                    .catch(err => {
+                        console.error( err, 'hit');
+                    })
             })
+        }
 })
 
 module.exports = {

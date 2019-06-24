@@ -9,6 +9,8 @@ const ApiRouter = express.Router();
 
 ApiRouter.post('/quiz', (req, res) => {
     const {
+        quizName,
+        quizOwner,
         inputType,
         quizType,
         whoToEmail,
@@ -17,7 +19,8 @@ ApiRouter.post('/quiz', (req, res) => {
 
     } = req.body
     const newQuiz = new Quiz({
-        
+        quizName,
+        quizOwner,
         inputType,
         quizType,
         whoToEmail,

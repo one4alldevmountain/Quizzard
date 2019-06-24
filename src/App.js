@@ -1,12 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import routes from './routes';
-import './App.css';
-// import { QuizFormView } from './Components';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import { updateUser } from './actions';
 import { HashRouter } from 'react-router-dom';
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import './App.css';
 
-function App() {
+const App = (props) => {
+
+  useEffect(() => {
+    axios.get('http://localhost:7000/auth/userassign').then(user => {
+
+      props.updateUser(user.data)
+    }, [])
+  })
+
+
   toast.configure({
     autoClose: 2000,
     position: 'top-center',
@@ -22,4 +33,6 @@ function App() {
   );
 }
 
-export default App;
+
+
+export default connect(null, { updateUser })(App) 

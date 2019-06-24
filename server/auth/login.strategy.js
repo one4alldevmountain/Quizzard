@@ -7,7 +7,7 @@ const loginStrategy = new LocalStrategy((username, password, done) => {
     User.findOne({'username': username})
         .then(user => {
             if (!user) {
-                return done({ message: 'Username or password is incorrect' });
+                return done('Username or password is incorrect');
             }
 
             bcrypt.compare(password, user.password, (err, isSame) => {
