@@ -35,7 +35,7 @@ class GetQuizByPin extends Component {
     render() {
 
         return (
-            <div>
+            <div className="pin-form-parent">
                 <div className="pin-container">
                     <Link to="/">
                         <img

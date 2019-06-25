@@ -8,7 +8,7 @@ import './Register.scss';
 
 const Register = (props) => {
     return (
-        <div>
+        <div className="register-form-parent-div">
             <section className="register-form-container">
                 <Link to="/">
                     <img
