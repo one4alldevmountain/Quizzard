@@ -5,9 +5,9 @@ import './GetQuizByPin.scss';
 
 
 
-class GetQuizByPin extends Component{
+class GetQuizByPin extends Component {
 
-    constructor(){
+    constructor() {
         super();
 
 
@@ -32,33 +32,37 @@ class GetQuizByPin extends Component{
 
 
 
-    render(){
+    render() {
 
         return (
             <div>
-                <Link to="/">
-                    <img 
-                    className="logo"
-                    src={logo1} 
-                    alt="logo"/>
-                </Link>
-               
-                <div className="pin-input">
+                <div className="pin-container">
+                    <Link to="/">
+                        <img
+                            className="pin-logo"
+                            src={logo1}
+                            alt="logo" />
+                    </Link>
+
+                    <section className="pin-input-section">
                         <p className="pin-title">Enter Your Pin:</p>
                         <input
-                        className="pin-input"
-                        type="text"
-                        value={this.state.pinInput}
-                        onChange={ (event) => {this.handlePinChange(event.target.value)}}
+                            className="pin-input"
+                            type="text"
+                            value={this.state.pinInput}
+                            onChange={(event) => { this.handlePinChange(event.target.value) }}
                         />
-                        <button 
-                        type='submit'
-                        onClick={(event) => this.handleSubmitPin(event)}
+                        <button
+                            className="pin-submit-btn"
+                            type='submit'
+                            onClick={(event) => this.handleSubmitPin(event)}
                         >
                             Submit
                         </button>
+                    </section>
                 </div>
-    
+
+
             </div>
         );
     }
