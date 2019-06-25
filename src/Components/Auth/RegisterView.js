@@ -1,4 +1,5 @@
 import React from 'react';
+import MaterialIcon from 'material-icons-react';
 import { Link } from 'react-router-dom';
 import logo1 from '../images/logo1.png';
 import './Register.scss';
@@ -8,59 +9,74 @@ import './Register.scss';
 const Register = (props) => {
     return (
         <div>
-            <Link to="/">
-                <img
-                    className="logo"
-                    src={logo1}
-                    alt="logo" />
-            </Link>
+            <section className="register-form-container">
+                <Link to="/">
+                    <img
+                        className="register-logo"
+                        src={logo1}
+                        alt="logo" />
+                </Link>
 
-            <div className="pin-input">
-                <div className="auth-container">
-
-
-                        <section className="register-form">
-
-                            <div className="username">
-                                <input
-                                    className="username-input"
-                                    placeholder="Username"
-                                    type="text"
-                                 
-                                />
-                            </div>
-
-                            <div className="password">
-
-                                <input
-                                    className="password-input"
-                                    placeholder="Password"
-                                    type="password"
-                                />
-                            </div>
-                            <div className="email">
-                                <input
-                                    className="email-input"
-                                    placeholder="Email Address"
-                                    type="text"
-                                />
-                            </div>
-
-                            <div className="buttons">
-                                <Link className="register-button" to="/Register" >
-                                    <p className="signup-text">sign up</p>
-                                </Link>
-
-                                <Link className="login-button" to="/Login">
-                                    <p className="Login-text">Login</p>
-                                </Link>
-                            </div>
-
-                        </section>
+                    <div className="register-form">
 
 
-                </div>
-            </div>
+                           <section className="input-section">
+                                        <div className="username">
+                                            <div className="username-icon">
+                                               <MaterialIcon icon="person" color="white" />
+                                            </div>
+                                            
+                                            <input
+                                                className="username-input"
+                                                placeholder="Username"
+                                                type="text"
+                                            
+                                            /> 
+                                        </div>
+
+                                        <div className="password">
+                                            <div className="password-icon">
+                                                 <MaterialIcon icon="vpn_key" color="white"/>
+                                            </div>
+                                           
+                                            <input
+                                                className="password-input"
+                                                placeholder="Password"
+                                                type="password"
+                                            />
+                                        </div>
+                                        <div className="email">
+                                            <div className="email-icon">
+                                               <MaterialIcon icon="mail" color="white"/>
+                                            </div>
+                                            
+                                            <input
+                                                className="email-input"
+                                                placeholder="Email Address"
+                                                type="text"
+                                            />
+                                        </div>
+                           </section>
+
+                     
+
+                                <div className="register-buttons">
+                                    <Link className="register-btn" to="/Register" >
+                                        sign up
+                                    </Link>
+
+                                    <Link className="register-btn" to="/Login">
+                                        Login
+                                    </Link>
+                                </div>
+
+                        
+
+
+                    </div>
+               
+            </section>
+           
 
         </div>
     );
