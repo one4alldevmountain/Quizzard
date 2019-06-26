@@ -1,0 +1,127 @@
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: solid;
+    border-color: black;
+    border-width: 1px;
+    background-color: rgb(224, 224, 224);
+    margin-top: 80px;
+    width: 570px;
+    height: 550px;
+}
+
+.login-logo {
+    margin-top:10px;
+    height: 200px;
+    width: 200px;
+    border-style: outset;
+    border: none;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.4);
+    margin-bottom: 30px;
+}
+
+.login-logo:hover {
+    margin-top:10px;
+    height: 200px;
+    width: 200px;
+    border-style: outset;
+    border: none;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.9);
+}
+
+
+.login-username {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: solid;
+    color: gray;
+    border-width: 1px;
+}
+
+
+
+.login-username-icon {
+    margin: 10px;
+}
+
+
+
+
+.login-password {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: solid;
+    color: gray;
+    border-width: 1px;
+}
+
+
+.login-password-icon {
+    margin: 10px;
+}
+
+
+.login-input-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.login-username-input {
+    height: 44px;
+    width: 300px;
+}
+
+
+.login-password-input {
+    height: 44px;
+    width: 300px;
+}
+
+
+
+.login-form-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.loginpage-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: aliceblue;
+    height: 40px;
+    width: 100px;
+    border: outset;
+    background-color: rgb(73, 133, 245);
+    font-family: Arial, Helvetica, sans-serifl;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+
+
+.loginpage-btn:hover {
+    cursor: pointer;
+    background-color: rgb(8, 103, 245);
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.9);
+}
