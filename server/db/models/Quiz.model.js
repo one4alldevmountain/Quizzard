@@ -1,4 +1,5 @@
 const { Schema, model} = require('mongoose');
+const shortid = require('shortid');
 
 
 const QuestionsSchema = new Schema({
@@ -9,6 +10,11 @@ const QuestionsSchema = new Schema({
 
 
 const QuizSchema = new Schema({
+    _id: {
+        type: String,
+        default: shortid.generate
+    },
+    quizOwner: String,
     whoToEmail: Array,
     inputType: String,
     quizType: String,

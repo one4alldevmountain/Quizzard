@@ -82,7 +82,6 @@ class QuizForm extends Component{
     handleAnswerChange = (content, questionIndex, answerIndex) => {
         this.setState(prevState => {
             let questions = prevState.quiz.questions.slice(0);
-            console.log(answerIndex)
             questions[questionIndex].answers[answerIndex].answerContent = content;
 
             return {
@@ -219,7 +218,6 @@ class QuizForm extends Component{
                 this.setState(prevState => {
                     const questions = prevState.quiz.questions.slice(0);
                     questions[questionIndex].correctAnswers = [answerIndex];
-                    console.log(questions)
     
                     return {
                         ...prevState,
@@ -235,7 +233,6 @@ class QuizForm extends Component{
                     const questions = prevState.quiz.questions.slice(0);
 
                     questions[questionIndex].correctAnswers = [...questions[questionIndex].correctAnswers, answerIndex];
-                    console.log('questions', questions)
                     return {
                         ...prevState,
                         quiz: {
@@ -248,7 +245,6 @@ class QuizForm extends Component{
         }
         else{
             this.setState(prevState => {
-                console.log('hit')
                 const questions = prevState.quiz.questions.slice(0);
                 questions[questionIndex].correctAnswers.splice(indexOfAnswer, 1);
                 return {
@@ -267,22 +263,32 @@ class QuizForm extends Component{
         if(this.state.quiz.questions.length === 0 || this.state.whoToEmail.length === 0){
             toast.error('You are missing some inputs')
         }
-        
-        const {
-            quiz,
-            inputType,
-            quizType,
-            whoToEmail,
-        } = this.state;
-        axios.post('http://localhost:7000/api/quiz', {
-            inputType,
-            quizType,
-            whoToEmail,
-            categories: quiz.categories,
-            questions: quiz.questions,
+        else{
 
-        });
-    }
+            const {
+                quiz,
+                inputType,
+                quizType,
+                whoToEmail,
+            } = this.state;
+            axios.post('http://localhost:7000/api/quiz', {
+                quizName: 'placeHolder',
+                quizOwner: 'placeHolder',
+                inputType,
+                quizType,
+                whoToEmail,
+                categories: quiz.categories,
+                questions: quiz.questions,
+    
+            }).then(response => {
+                    toast.success('Quiz Created');
+                
+            }).catch(err => {
+                toast.error('Failed to post quiz');
+            })
+        }
+        }
+        
     displayQuestions = (quizType, inputType, questions) => {
 
         if(questions){

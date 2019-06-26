@@ -11,19 +11,36 @@ AuthRouter.post('/login', passport.authenticate('login'), (req, res) => {
         message: 'Logged In',
          user: req.user
     });
-});
+})
 //register endpoint, 
 AuthRouter.post('/register', passport.authenticate('register'), (req, res) => {
+    console.log(req)
     res.send({
-        message: 'Registered and Logged In!',
+        message: 'Registered and Logged In',
          user: req.user
     })
 });
 //logout endpoint,
 AuthRouter.get('/logout', (req, res) => {
     req.logout();
-    res.send('logged out.');
+    res.send('logged out');
 });
+
+
+AuthRouter.get('/userassign', (req, res) => {  
+    console.log(req)
+    if(req.isAuthenticated()){
+        res.send(req.user)
+    }
+    else{
+        res.send({
+            _id: -1,
+            username: 'Guest',
+            email: 'guest',
+
+        })
+    }
+})
 
 
 

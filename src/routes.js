@@ -18,7 +18,7 @@ export default (
        <Route component={RegisterView} path="/register" />
        <Route component={LoginView} path="/login" />
        <Route component={QuizForm} path="/form" />
-       <Route component={HomeView} path="/homepage" /> 
+       <Route component={HomeView} path="/home" /> 
     </Switch>
 
 )

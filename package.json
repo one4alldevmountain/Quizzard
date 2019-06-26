@@ -29,6 +29,7 @@
     "react-scripts": "3.0.1",
     "react-toastify": "^5.3.1",
     "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.8",
     "sessions": "0.0.2-7",
     "shortid": "^2.2.14",
     "toastify": "^2.0.0"

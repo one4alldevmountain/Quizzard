@@ -8,19 +8,23 @@ passport.use('register', registerStrategy);
 passport.use('login', loginStrategy);
 
 passport.serializeUser((user, done) => {
+    console.log(user);
     done(null, user._id);
 });
 
-passport.deserializeUser((userId, done) => {
-    if (!userId) {
+passport.deserializeUser((_id, done) => {
+    console.log('hit')
+    if (!_id) {
         return done(null, false);
     }
+    console.log(_id)
     
-    User.findById(userId)
+    User.findById(_id)
         .then(user => {
-            delete user.password;
+            
+            
 
-            done(null, user);
+            done(null, {username: user.username, email: user.email, _id: user._id});
         })
         .catch(err => {
             console.error(err);
