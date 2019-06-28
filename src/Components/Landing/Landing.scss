@@ -1,57 +1,65 @@
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic);
+
+html,
+body {
+  background-color: #282A30;
+}
+.divider{
+  width:30px;
+  height:auto;
+  display:inline-block;
+}
+.card {
+  background-color: whitesmoke;
+  height: 85vh;
+  width: 55vw;
+  position: center;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+  overflow: hidden;
+}
 .landing-container{
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
-   border: solid;
-   border-color: black;
-   border-width: 1px;
-   background-color: rgb(224, 224, 224);
-   margin-top: 80px;
-   width: 570px;
-   height: 550px;
-   margin-left: 25%;
-}
-
-
-
-.logo{
-    margin-top:10px;
-    height: 200px;
-    width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: solid;
+    border-width: 0px;
+    background-color: whitesmoke;
+    margin-top: 80px;
     border-style: outset;
-    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.7);
+ }
+ .logo{
+     margin-top:10px;
+     height: 200px;
+     width: 200px;
+     border-style: outset;
+     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.7);
+ }
+ .btn-1 {
+	-moz-box-shadow:inset 0px 0px 3px 0px #276873;
+	-webkit-box-shadow:inset 0px 0px 3px 0px #276873;
+	box-shadow:inset 0px 0px 3px 0px #276873;
+	background-color:#599bb3;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Georgia;
+	font-size:19px;
+	padding:32px 31px;
+	text-decoration:none;
 }
-
-
-.landing-Buttons{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
-    
+.btn-1:hover {
+	background-color:#408c99;
 }
-
-
-.btn-1{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: aliceblue;
-    height: 80px;
-    width: 230px;
-    border: outset;
-    background-color: rgb(73, 133, 245);
-    font-family: Arial, Helvetica, sans-serifl;
-    font-size: 30px;
-    text-decoration: none;
-    margin: 5%;
-}
-
-
-.btn-1:hover{
-    cursor: pointer;
-     background-color: rgb(8, 103, 245);
-     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.9);
+.btn-1:active {
+	position:relative;
+	top:1px;
 }

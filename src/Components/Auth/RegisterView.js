@@ -7,6 +7,7 @@ import MaterialIcon from 'material-icons-react';
 import { Link } from 'react-router-dom';
 import logo1 from '../images/logo1.png';
 import './Register.scss';
+import HeaderView from '../Header/HeaderView';
 
 
 class Register extends Component{
@@ -65,84 +66,74 @@ class Register extends Component{
     render(){
         
         return (
-            <div className="register-form-parent-div">
-                <Link to="/">
-                    <img
-                        className="register-logo"
-                        src={logo1}
-                        alt="logo" />
-                </Link>
+        <div><HeaderView />
+        <div className="register-form-parent-div">
+    <section className="card">
     
-                <div className="pin-input">
-                    <div className="auth-container">
-    
-    
-                            <section className="register-form-container">
-
-                                <form className="register-form" onSubmit={event => this.handleRegister(event)}>
-                                    <div className="input-section">
-
-                                        <div className="username">
-                                            <div className="username-icon">
-                                               <MaterialIcon icon="person" color="white" />
-                                            </div>
-                                            <input
-                                                className="username-input"
-                                                placeholder="Username"
-                                                type="text"
-                                                onChange={event => this.handleInputChange(event.target.value, 'username')}
-                                            
-                                            />
-                                        </div>
-            
-                                        <div className="password">
-                                            <div className="password-icon">
-                                                 <MaterialIcon icon="vpn_key" color="white"/>
-                                            </div>
-            
-                                            <input
-                                                className="password-input"
-                                                placeholder="Password"
-                                                type="password"
-                                                onChange={event => this.handleInputChange(event.target.value, 'password')}
-                                            />
-                                        </div>
-                                        <div className="email">
-                                            <div className="email-icon">
-                                               <MaterialIcon icon="mail" color="white"/>
-                                            </div>
-                                            <input
-                                                className="email-input"
-                                                placeholder="Email Address"
-                                                type="text"
-                                                onChange={event => this.handleInputChange(event.target.value, 'email')}
-                                            />
-                                        </div>
-            
-                                        <div className="register-buttons">
-                                                <button className="register-button">Create account</button>
-                                            <p>or</p>
-            
-                                            <Link className="register-btn" to="/Login">
-                                                <p className="Login-text">Login</p>
-                                            </Link>
-                                        </div>
-                                    </div>
-
-                                </form>
-    
-    
-                            </section>
-    
-    
-                    </div>
-                </div>
-    
+      <center><Link to="/">
+        <img className="register-logo" src={logo1} alt="logo" />
+      </Link></center>
+      <form
+        className="register-form"
+        onSubmit={event => this.handleRegister(event)}
+      >
+        <div className="input-section">
+          <div className="username">
+            <div className="username-icon">
+              <MaterialIcon icon="person" color="white" />
             </div>
-        );
+            <input
+              className="username-input"
+              placeholder="Username"
+              type="text"
+              onChange={event =>
+                this.handleInputChange(event.target.value, "username")
+              }
+            />
+          </div>
+
+          <div className="password">
+            <div className="password-icon">
+              <MaterialIcon icon="vpn_key" color="white" />
+            </div>
+
+            <input
+              className="password-input"
+              placeholder="Password"
+              type="password"
+              onChange={event =>
+                this.handleInputChange(event.target.value, "password")
+              }
+            />
+          </div>
+          <div className="email">
+            <div className="email-icon">
+              <MaterialIcon icon="mail" color="white" />
+            </div>
+            <input
+              className="email-input"
+              placeholder="Email Address"
+              type="text"
+              onChange={event =>
+                this.handleInputChange(event.target.value, "email")
+              }
+            />
+          </div>
+
+          <div className="register-buttons">
+            <button className="register-btn">Create account</button>
+            <div className="divider"></div>
+
+            <button className="register-btn" to="/Login">
+              Login
+            </button>
+          </div>
+        </div>
+      </form>
+    </section>
+  </div>
+  </div>   )
     }
 }
-
-
 
 export default connect(null, { updateUser })(Register)

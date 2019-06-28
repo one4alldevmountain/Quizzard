@@ -7,13 +7,7 @@ import './Header.scss';
 export default function HeaderView() {
     return (
         <div className="header">
-            <img 
-            className="logo-header"
-            src={logo1}
-            alt="LogoImage"/>
+            <h1><i>Quizzard</i></h1>
         </div>
     )
 }
-
-
-
