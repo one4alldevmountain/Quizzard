@@ -129,13 +129,14 @@
 
 .quiz-card {
     position: absolute;
-    top: 220px;
-    left: 10%;
-    height: 60%;
-    width: 75%;
+    top: 100px;
+    left: 35%;
+    height: 80%;
+    width: 55%;
     background: white;
     margin: 20px 40px;
     border-radius: 3px;
+    transition: ease-in 1000ms;
 }
 
 .quiz-type-title {
@@ -143,26 +144,30 @@
 }
 
 
-
-
-.add-question-button{
+.quiz-card-buttons {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    top: 45%;
-    left: 45%;
-    font-size: 50px;
-    height: 100px;
-    width: 100px;
+}
+
+.add-question-button{
+    font-size: 30px;
+    height: 60px;
+    width: 150px;
     border-radius: 3px;
 }
 
+.add-question-button p {
+    font-size: 16px;
+    margin: 0px;
+    padding: 0px;
+}
 
 .add-question-button:hover {
     cursor: pointer;
     background-color: rgb(151, 151, 151);
-    color: #ffffff;
+    color: white;
 }
 
 
@@ -196,6 +201,3 @@
     cursor: pointer;
     background-color: #408c99;
 }
-
-
-

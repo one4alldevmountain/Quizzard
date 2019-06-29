@@ -475,7 +475,9 @@ class QuizForm extends Component {
 
                                 <button
                                     className="add-question-button"
-                                    onClick={() => this.handleAddQuestion(this.state.quizType)}>&#43;</button>
+                                    onClick={() => this.handleAddQuestion(this.state.quizType)}>
+                                    <p>Add a Question</p>
+                                    &#43;</button>
 
                                 <button
                                     className="create-quiz-button"
