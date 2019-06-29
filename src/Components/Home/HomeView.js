@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.scss';
+import { toast } from 'react-toastify';
 
 
 
@@ -11,6 +12,11 @@ class Home extends Component {
          this.state = {
              user: ""      
          };
+       }
+
+       componentDidMount(){
+           console.log(this.props);
+           toast(`Quiz Pin: ${this.props.match.params.urlextension}`, {autoClose: false, draggable: false, closeOnClick: false})
        }
 
 
