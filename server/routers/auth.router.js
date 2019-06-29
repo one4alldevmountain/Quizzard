@@ -14,7 +14,6 @@ AuthRouter.post('/login', passport.authenticate('login'), (req, res) => {
 })
 //register endpoint, 
 AuthRouter.post('/register', passport.authenticate('register'), (req, res) => {
-    console.log(req)
     res.send({
         message: 'Registered and Logged In',
          user: req.user
@@ -30,6 +29,7 @@ AuthRouter.get('/logout', (req, res) => {
 AuthRouter.get('/userassign', (req, res) => {  
     if(req.isAuthenticated()){
         res.send(req.user)
+        
     }
     else{
         res.send({

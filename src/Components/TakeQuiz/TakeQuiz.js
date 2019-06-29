@@ -37,7 +37,6 @@ class TakeQuiz extends Component{
 
         getQuiz = (urlExtention) => {
             axios.get('/api/quiz/' + urlExtention).then(res => {
-                console.log(res.data)
 
                 const {
                     whoToEmail,
@@ -69,7 +68,6 @@ class TakeQuiz extends Component{
 
         handleSubmit = (event) => {
             event.preventDefault();
-            console.log(validateEmail(this.state.email))
             if(!validateEmail(this.state.email)){
                 console.log('hit')
                 toast.error('Please input a valid email')
@@ -161,7 +159,6 @@ class TakeQuiz extends Component{
         handleOpenEndedInputChange = (value, questionIndex) => {
             
             this.setState( prevState => {
-                console.log(this.state)
                 let openEndedInput = prevState.openEndedInput;
                 openEndedInput[questionIndex] = value;
                 return{

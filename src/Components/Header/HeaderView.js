@@ -13,7 +13,6 @@ const HeaderView = (props) => {
     const handleLogout = () => {
         axios.get('/auth/logout').then(response => {
             if(response.data === 'logged out'){
-                console.log(props);
                 axios.get('/auth/userassign').then(response => {
                     props.updateUser(response.data);
                 }).then(() => {
