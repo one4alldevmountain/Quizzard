@@ -103,11 +103,12 @@ class Login extends Component{
                                             </button>
 
                                             <p>or</p>
+                                            
 
-                                            <Link className="loginpage-btn" to="/Register" >
+            
+                                            <Link className="" to="/Register" >
                                                 <p>sign up</p>
                                             </Link>
-            
                                         </div>
                                     </form>
         
