@@ -102,14 +102,14 @@ class Login extends Component {
                 </div>
            
                 <div className="loginpage-buttons">
-                  
-                  <Link className="login-btn" to="/Register">
-                    Sign Up
-                  </Link>
+                <button className="register-btn">Login</button>
+                 
 
                   <div className="divider"></div>
 
-                  <button className="register-btn">Login</button>
+                  <Link className="sign-up-link" to="/Register">
+                    New to Quizzard? Create an Aoount.
+                  </Link>
 
                 </div>
               </div>

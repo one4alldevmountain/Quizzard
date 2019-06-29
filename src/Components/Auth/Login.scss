@@ -136,22 +136,15 @@
 }
 
 
-.login-btn {
-    -moz-box-shadow:inset 0px 0px 3px 0px #276873;
-	-webkit-box-shadow:inset 0px 0px 3px 0px #276873;
-	box-shadow:inset 0px 0px 3px 0px #276873;
-	background-color:#599bb3;
-	-moz-border-radius:3px;
-	-webkit-border-radius:3px;
-	border-radius:3px;
+.sign-up-link {
+    border-radius:3px;
 	display:inline-block;
 	cursor:pointer;
-	color:#ffffff;
+	color: black;
 	font-family:Georgia;
-	font-size:19px;
-	padding:32px 31px;
-    text-decoration:none;
-    width: 150px;
+	font-size:16px;
+	padding:20px;
+    text-decoration:underline;
     text-align: center;
 }
 
@@ -161,7 +154,6 @@
 }
 
 
-.login-btn:hover {
+.sign-up-link:hover {
     cursor: pointer;
-    background-color: #408c99;
 }
