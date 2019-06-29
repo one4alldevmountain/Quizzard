@@ -69,9 +69,11 @@ class TakeQuiz extends Component{
 
         handleSubmit = (event) => {
             event.preventDefault();
-            if(validateEmail(this.state.email === false)){
+            console.log(validateEmail(this.state.email))
+            if(!validateEmail(this.state.email)){
                 console.log('hit')
                 toast.error('Please input a valid email')
+                return;
             }
             
 
