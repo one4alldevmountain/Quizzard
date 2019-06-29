@@ -1,13 +1,13 @@
 import React from "react";
 import logo1 from "../images/logo1.png";
 import "./Landing.scss";
-import HeaderView from "./../Header/HeaderView";
 import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
+import { validateEmail } from '../utils/validateEmail';
 
 var Landing = props => {
   return (
       <div>
-    <HeaderView />
     <div className="card">
       <center>
         <img className="logo" src={logo1} alt="logo" />
@@ -18,10 +18,17 @@ var Landing = props => {
           <Link to="/Pin" className="btn-1">
             Take Quiz
           </Link>
-          <div class="divider"/>
+          <div className="divider"/>
+    {console.log(props)}
+          {props.email === 'guest' ? 
           <Link to="/Register" className="btn-1">
             Make Quiz
+          </Link>:
+          <Link to="/home" className="btn-1">
+            Make Quiz
           </Link>
+        }
+          
         </div>
       </div>
     </div>
@@ -29,4 +36,14 @@ var Landing = props => {
   );
 };
 
-export default Landing;
+const mapStateToProps = (reduxState) => {
+  console.log(reduxState)
+  const {
+      email,
+  } = reduxState;
+  return{
+      email,
+  }
+}
+
+export default connect(mapStateToProps)(Landing);

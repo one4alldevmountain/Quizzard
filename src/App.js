@@ -3,15 +3,17 @@ import routes from './routes';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { updateUser } from './actions';
-import { HashRouter } from 'react-router-dom';
+import { HashRouter, Route } from 'react-router-dom';
 import { toast } from 'react-toastify'
+import HeaderView from './Components/Header/HeaderView';
 import 'react-toastify/dist/ReactToastify.css';
-import './App.css';
+import './App.scss';
+import './cssReset.css';
 
 const App = (props) => {
 
   useEffect(() => {
-    axios.get('http://localhost:7000/auth/userassign').then(user => {
+    axios.get('/auth/userassign').then(user => {
 
       props.updateUser(user.data)
     }, [])
@@ -25,14 +27,26 @@ const App = (props) => {
   return (
 
 
-    <div>
+    <div >
+      
       <HashRouter>
+        <HeaderView/>
+        <div className='pageContainer'>
+
            {routes}
+        </div>
       </HashRouter>
     </div>
   );
 }
 
-
+// const mapStateToProps = (reduxState) => {
+//   const {
+//       _id,
+//   } = reduxState;
+//   return{
+//       _id,
+//   }
+// }
 
 export default connect(null, { updateUser })(App) 

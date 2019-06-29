@@ -1,6 +1,6 @@
+require('dotenv').config({path: `${__dirname}/.env`});
 const express = require ('express');
 require('./auth/passport.auth');
-require('dotenv').config({path: `${__dirname}/.env`});
 
 
 //requiring db stuff
@@ -35,10 +35,6 @@ addRoutes(app);
 
 
 
-
-// app.get('/api/users',)
-// app.get('/api/quizzes', )
-// app.get('/api/quiz/:id', )
 
 
 

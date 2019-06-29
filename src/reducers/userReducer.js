@@ -1,7 +1,7 @@
 const initialState = {
-    username: '',
-    email: '',
-    _id: null,
+    _id: -1,
+    username: 'Guest',
+    email: 'guest',
 };
 
 
@@ -15,6 +15,7 @@ export function userReducer(state = initialState, action) {
                    ...state,
                    ...action.payload
                }
+            default: return state;  
                
        }
 

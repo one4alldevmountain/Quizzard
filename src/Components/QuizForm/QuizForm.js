@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import './QuizForm.scss'
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { connect } from 'react-redux';
 
 
 class QuizForm extends Component {
@@ -18,6 +19,7 @@ class QuizForm extends Component {
 
             whoToEmail: [],
             categoryInput: '',
+            quizName: '',
             quizType: '',
             inputType: '',
             inputsAreValid: false,
@@ -97,6 +99,11 @@ class QuizForm extends Component {
     handleCategoryInputChange = (value) => {
         this.setState({
             categoryInput: value,
+        })
+    }
+    handleQuizNameChange = (value) => {
+        this.setState({
+            quizName: value,
         })
     }
     handleWhoToEmail = (value) => {
@@ -272,9 +279,9 @@ class QuizForm extends Component {
                 quizType,
                 whoToEmail,
             } = this.state;
-            axios.post('http://localhost:7000/api/quiz', {
-                quizName: 'placeHolder',
-                quizOwner: 'placeHolder',
+            axios.post('/api/quiz', {
+                quizName: this.state.quizName,
+                quizOwner: this.props._id,// object with email in it
                 inputType,
                 quizType,
                 whoToEmail,
@@ -283,7 +290,8 @@ class QuizForm extends Component {
 
             }).then(response => {
                 toast.success('Quiz Created');
-
+                this.props.history.push('/home');
+                
             }).catch(err => {
                 toast.error('Failed to post quiz');
             })
@@ -364,6 +372,16 @@ class QuizForm extends Component {
             <div>
                 <div className="header">
                     <HeaderView />
+                </div>
+                <div>
+                    <label>
+                        Quiz Name
+                        <input
+                            type='text'
+                            className='quizName'
+                            onChange={event => this.handleQuizNameChange(event.target.value)}
+                            />
+                    </label>
                 </div>
                 <label>
                     <div className="quiz_form_container">
@@ -494,6 +512,15 @@ class QuizForm extends Component {
     }
 
 }
+const mapStateToProps = (reduxState) => {
+    console.log(reduxState)
+    const {
+        _id,
+    } = reduxState;
+    return{
+        _id,
+    }
+}
 
-
-export default QuizForm;
+export default connect(mapStateToProps)(QuizForm) ;
+//
