@@ -31,9 +31,10 @@ ApiRouter.post('/quiz', (req, res) => {
 
     })
 
-    newQuiz.save().then( () => {
+    newQuiz.save().then( response => {
+        
 
-        res.status(202).send('created')
+        res.status(202).send(response)
         }).catch(err => {
         res.status(500).send(err)
         })   

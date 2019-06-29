@@ -44,7 +44,8 @@ class Register extends Component {
       }).then(response => {
         if (response.data.message = 'Registered and Logged In') {
           this.props.updateUser(response.data.user)
-          this.props.history.push('/Login')
+          this.props.history.push('/home')
+          toast.success('Registered and Logged in')
         }
       }).catch(err => {
         if (err.response) {
