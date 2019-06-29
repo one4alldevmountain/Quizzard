@@ -25,7 +25,6 @@ class SearchView extends Component {
     let { searchResults, title } = this.state;
     return (
       <div className="search-page">
-        <HeaderView />
         <Link 
         className="back-arrow"
         to="/Home">&#8592;</Link>

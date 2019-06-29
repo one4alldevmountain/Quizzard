@@ -107,7 +107,7 @@ class Login extends Component {
                   <div className="divider"></div>
 
                   <Link className="sign-up-link" to="/Register">
-                    New to Quizzard? Create an Aoount.
+                    New to Quizzard? Create an Account.
                   </Link>
 
                 </div>

@@ -126,7 +126,7 @@ class Register extends Component {
                   className="register-btn">Create account</button>
 
                   <Link className="login-link" to="/Login">
-                    Already have an Account? Login
+                    Already have an Account? Login.
                   </Link>
                 </div>
               </div>
