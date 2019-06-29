@@ -126,3 +126,73 @@
 .email-option2{
     display:flex;
 }
+
+.quiz-card {
+    position: absolute;
+    top: 220px;
+    left: 10%;
+    height: 60%;
+    width: 75%;
+    background: white;
+    margin: 20px 40px;
+    border-radius: 3px;
+}
+
+.quiz-type-title {
+     color: #599bb3;
+}
+
+
+
+
+.add-question-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 45%;
+    left: 45%;
+    font-size: 50px;
+    height: 100px;
+    width: 100px;
+    border-radius: 3px;
+}
+
+
+.add-question-button:hover {
+    cursor: pointer;
+    background-color: rgb(151, 151, 151);
+    color: #ffffff;
+}
+
+
+
+
+
+.create-quiz-button {
+    position: absolute;
+    right: 50px;
+    bottom: 50px;
+    -moz-box-shadow:inset 0px 0px 3px 0px #276873;
+	-webkit-box-shadow:inset 0px 0px 3px 0px #276873;
+	box-shadow:inset 0px 0px 3px 0px #276873;
+	background-color:#599bb3;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Georgia;
+	font-size:16px;
+	padding:10px;
+    text-decoration:none;
+    width: 130px;
+    text-align: center;
+}
+
+
+.create-quiz-button:hover {
+    cursor: pointer;
+    background-color: #408c99;
+}

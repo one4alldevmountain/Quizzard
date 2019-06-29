@@ -377,7 +377,7 @@ class QuizForm extends Component {
                         <div className="test-type-container">
                             <div className="test_type">
                                 Test Type:
-        
+
                                 <select className="test-type-select" value={this.state.quizType} onChange={event => this.handleUpperTypeChange(event.target.value, 'quizType')}>
                                     <option className="option" value="">Please choose a quiz type</option>
                                     <option className="option" value="graded">Graded</option>
@@ -405,31 +405,31 @@ class QuizForm extends Component {
                             <p className="who-to-mail-title"> Who To Email: </p>
                         </div>
 
-                           <div className="email-options-container">
-                               <div className="email-option1"> 
-                                   Quiz Maker 
+                        <div className="email-options-container">
+                            <div className="email-option1">
+                                Quiz Maker
                                    <input
-                            className="quizmaker-input-box"
-                            type='checkbox'
-                            value='quizOwner'
-                            name='whoToEmail'
-                            onChange={(event) => this.handleWhoToEmail(event.target.value)}
-                        />
-                               </div>
-                               
-                            <div className="email-option2"> 
-                            Quiz Taker  <input
-                            className="quiztaker-input-box"
-                                type='checkbox'
-                                value='quizTaker'
-                                name='whoToEmail'
-                                onChange={(event) => this.handleWhoToEmail(event.target.value)}
-                            /> 
+                                    className="quizmaker-input-box"
+                                    type='checkbox'
+                                    value='quizOwner'
+                                    name='whoToEmail'
+                                    onChange={(event) => this.handleWhoToEmail(event.target.value)}
+                                />
                             </div>
-                            
-                            
-                            
+
+                            <div className="email-option2">
+                                Quiz Taker  <input
+                                    className="quiztaker-input-box"
+                                    type='checkbox'
+                                    value='quizTaker'
+                                    name='whoToEmail'
+                                    onChange={(event) => this.handleWhoToEmail(event.target.value)}
+                                />
                             </div>
+
+
+
+                        </div>
 
                     </section>
 
@@ -442,8 +442,11 @@ class QuizForm extends Component {
                 <hr />
                 {
                     this.state.inputsAreValid ?
-                        <div>
-                            <h1>{this.state.quizType}</h1>
+                        <div className="quiz-card">
+                            <center><h1 className="quiz-type-title">{this.state.quizType}</h1> </center>
+
+                            <hr />
+
 
                             {
                                 this.state.quizType === 'sorted' ?
@@ -466,10 +469,17 @@ class QuizForm extends Component {
                                     </div> : null
                             }
                             {this.displayQuestions(this.state.quizType, this.state.inputType, this.state.quiz.questions)}
-                            <button onClick={() => this.handleAddQuestion(this.state.quizType)}>add question</button>
 
-                            <div>
-                                <button type='submit' onClick={(event) => this.handleSubmitForm(event)}> Create Quiz </button>
+
+                            <div className="quiz-card-buttons">
+
+                                <button
+                                    className="add-question-button"
+                                    onClick={() => this.handleAddQuestion(this.state.quizType)}>&#43;</button>
+
+                                <button
+                                    className="create-quiz-button"
+                                    type='submit' onClick={(event) => this.handleSubmitForm(event)}> Create Quiz </button>
 
                             </div>
                         </div> :

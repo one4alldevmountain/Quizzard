@@ -81,7 +81,7 @@ class Register extends Component {
               <div className="input-section">
                 <div className="username">
                   <div className="username-icon">
-                    <MaterialIcon icon="person" color="white" />
+                    <MaterialIcon icon="person" color="gray" />
                   </div>
                   <input
                     className="username-input"
@@ -95,7 +95,7 @@ class Register extends Component {
 
                 <div className="password">
                   <div className="password-icon">
-                    <MaterialIcon icon="vpn_key" color="white" />
+                    <MaterialIcon icon="vpn_key" color="gray" />
                   </div>
 
                   <input
@@ -109,7 +109,7 @@ class Register extends Component {
                 </div>
                 <div className="email">
                   <div className="email-icon">
-                    <MaterialIcon icon="mail" color="white" />
+                    <MaterialIcon icon="mail" color="gray" />
                   </div>
                   <input
                     className="email-input"

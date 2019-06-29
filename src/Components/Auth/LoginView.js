@@ -76,7 +76,7 @@ class Login extends Component {
               <div className="input-section">
                 <div className="username">
                   <div className="username-icon">
-                    <MaterialIcon icon="person" color="white" />
+                    <MaterialIcon icon="person" color="gray" />
                   </div>
                   <input
                     className="username-input"
@@ -90,7 +90,7 @@ class Login extends Component {
 
                 <div className="password">
                   <div className="password-icon">
-                    <MaterialIcon icon="vpn_key" color="white" />
+                    <MaterialIcon icon="vpn_key" color="gray" />
                   </div>
 
                   <input

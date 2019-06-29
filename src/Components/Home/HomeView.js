@@ -41,10 +41,10 @@ render (){
 
                         <Link 
                         className="find-btn"
-                        to="/Search">Find</Link>
+                        to="/Search">Find a Quiz</Link>
                         <Link 
                         className="create-btn"
-                        to="/Form">Create</Link>
+                        to="/Form">Create a Quiz</Link>
                 </div>
 
                    
