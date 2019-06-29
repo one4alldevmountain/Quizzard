@@ -8,12 +8,10 @@ passport.use('register', registerStrategy);
 passport.use('login', loginStrategy);
 
 passport.serializeUser((user, done) => {
-    console.log(user);
     done(null, user._id);
 });
 
 passport.deserializeUser((_id, done) => {
-    console.log('hit')
     if (!_id) {
         return done(null, false);
     }

@@ -28,7 +28,6 @@ AuthRouter.get('/logout', (req, res) => {
 
 
 AuthRouter.get('/userassign', (req, res) => {  
-    console.log(req)
     if(req.isAuthenticated()){
         res.send(req.user)
     }

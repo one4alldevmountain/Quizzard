@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import QuizCard from './QuizCard';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast} from 'react-toastify';
+import Modal from 'react-responsive-modal';
+import { validateEmail } from '../utils/validateEmail';
 
 
 
@@ -12,6 +14,8 @@ class TakeQuiz extends Component{
             super();
 
             this.state = {
+                quizOwner: '',
+                quizName: '',
                 quizType: 'fsdfas',
                 inputType: '',
                 questions: [],
@@ -19,6 +23,10 @@ class TakeQuiz extends Component{
                 whoToEmail: [],
 
                 openEndedInput: {},
+                modalIsOpen: false,
+
+                name: '',
+                email: '',
 
 
             }
@@ -26,11 +34,15 @@ class TakeQuiz extends Component{
         componentWillMount(){
             this.getQuiz(this.props.match.params.pin);
         }
+
         getQuiz = (urlExtention) => {
-            axios.get('http://localhost:7000/api/quiz/' + urlExtention).then(res => {
+            axios.get('/api/quiz/' + urlExtention).then(res => {
+                console.log(res.data)
 
                 const {
                     whoToEmail,
+                    quizName,
+                    quizOwner,
                     inputType,
                     quizType,
                     categories,
@@ -39,6 +51,8 @@ class TakeQuiz extends Component{
                 
                 this.setState({
                     whoToEmail,
+                    quizName,
+                    quizOwner,
                     inputType,
                     quizType,
                     categories,
@@ -55,32 +69,51 @@ class TakeQuiz extends Component{
 
         handleSubmit = (event) => {
             event.preventDefault();
+            console.log(validateEmail(this.state.email))
+            if(!validateEmail(this.state.email)){
+                console.log('hit')
+                toast.error('Please input a valid email')
+                return;
+            }
+            
 
-            const checkIfAnswered = this.state.questions.filter(question => {
+            const answersLength = this.state.questions.filter(question => {
                 return question.userAnswers !== undefined
-                
-            })
-            if(this.state.questions.length === checkIfAnswered.length){
+            }).length;
+            const openEndedAnswersLength = Object.values(this.state.openEndedInput).filter(answer => {
+                return answer != '';
+            }).length
+            
+            if(this.state.questions.length === answersLength || openEndedAnswersLength === this.state.questions.length){
                 const {
+                    quizOwner,
+                    quizName,
                     quizType,
                     inputType,
                     whoToEmail,
                     questions,
                     categories,
-                    openEndedInput
+                    openEndedInput,
+                    name,
+                    email
 
                 } = this.state
-                axios.post('http://localhost:7000/api/submitquiz', {
+                axios.post('/api/submit', {
+                    quizOwner,
+                    quizName,
                     quizType,
                     inputType,
                     whoToEmail,
                     questions,
                     categories,
-                    openEndedInput
+                    openEndedInput,
+                    name,
+                    email
             
                 }).then( response => {
-                    if(response.data === 'success'){
+                    if(response.data === 'Email sent'){
                         toast.success('Completed')
+                        this.props.history.push('/pin');
 
                     }
                     
@@ -93,6 +126,7 @@ class TakeQuiz extends Component{
             }
             else{
                 toast.error('Please answer all questions.')
+                this.handleCloseModal();
                 
             }
 
@@ -127,6 +161,7 @@ class TakeQuiz extends Component{
         handleOpenEndedInputChange = (value, questionIndex) => {
             
             this.setState( prevState => {
+                console.log(this.state)
                 let openEndedInput = prevState.openEndedInput;
                 openEndedInput[questionIndex] = value;
                 return{
@@ -135,7 +170,17 @@ class TakeQuiz extends Component{
                 }
             })
         }
-
+        handleOpenModal = () => {
+            this.setState({modalIsOpen: true});
+        }
+        handleCloseModal = () => {
+            this.setState({modalIsOpen: false});
+        }
+        handleBasicInputChange = (value, whatToChange) => {
+            this.setState({
+                [whatToChange]: value,
+            })
+        }
 
 
 
@@ -169,13 +214,56 @@ class TakeQuiz extends Component{
                ) 
             }): null;
 
+            
+
             return(
                 <div>
-                    {questions}
+
+                    <h1>{this.state.quizName}</h1>
+                    
+                    <div>
+                        {questions}
+
+                    </div>
                 
-                    <button onClick={(event) => this.handleSubmit(event)}>
+                    <button onClick={() => this.handleOpenModal()}>
                         submit
                     </button>
+
+
+                    {/* modal */}
+                    <Modal 
+                        open={this.state.modalIsOpen} 
+                        onClose={() => this.handleCloseModal()}
+                        showCloseIcon={false}
+                        focusTrapped={true}
+                        closeOnOverlayClick={false}
+                        >
+                        <div>
+                            <input 
+                                type='text' 
+                                placeholder='Name'
+                                value={this.state.name}
+                                onChange={(event) => this.handleBasicInputChange(event.target.value, 'name')}
+                                />
+                            <input 
+                                type='text' 
+                                placeholder='Email'
+                                value={this.state.email}
+                                onChange={(event) => this.handleBasicInputChange(event.target.value, 'email')}
+                                />
+                            <button
+                                onClick={() => this.handleCloseModal()}
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={(event) => this.handleSubmit(event)}
+                            >
+                                Submit
+                            </button>
+                        </div>
+                    </Modal>
                 </div>
             )
         }

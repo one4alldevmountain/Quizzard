@@ -14,6 +14,7 @@ const QuizSchema = new Schema({
         type: String,
         default: shortid.generate
     },
+    quizName: String,
     quizOwner: String,
     whoToEmail: Array,
     inputType: String,

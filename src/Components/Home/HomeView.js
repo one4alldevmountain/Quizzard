@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-import { updateUser } from '../../actions';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './Home.scss';
-import HeaderView from '../Header/HeaderView';
-import { homedir } from 'os';
 
 
 
@@ -23,7 +19,6 @@ render (){
 
     return (
         <div>
-            <HeaderView />
 
             {/* <li>{this.props.user.username}</li> */}
 

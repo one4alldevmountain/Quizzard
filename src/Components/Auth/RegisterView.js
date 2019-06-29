@@ -7,7 +7,7 @@ import MaterialIcon from 'material-icons-react';
 import { Link } from 'react-router-dom';
 import logo1 from '../images/logo1.png';
 import './Register.scss';
-import HeaderView from '../Header/HeaderView';
+import { validateEmail } from '../utils/validateEmail';
 
 
 class Register extends Component {
@@ -67,7 +67,6 @@ class Register extends Component {
 
     return (
       <div>
-        <HeaderView />
         <div className="register-form-parent-div">
           <section className="card">
 
