@@ -371,7 +371,6 @@ class QuizForm extends Component {
         return (
             <div>
                 <div className="header">
-                    <HeaderView />
                 </div>
                 <div>
                     <label>
