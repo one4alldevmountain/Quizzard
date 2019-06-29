@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import QuizCard from './QuizCard';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast} from 'react-toastify';
+import Modal from 'react-responsive-modal';
+import { validateEmail } from '../utils/validateEmail';
 
 
 
@@ -21,6 +23,10 @@ class TakeQuiz extends Component{
                 whoToEmail: [],
 
                 openEndedInput: {},
+                modalIsOpen: false,
+
+                name: '',
+                email: '',
 
 
             }
@@ -28,6 +34,7 @@ class TakeQuiz extends Component{
         componentWillMount(){
             this.getQuiz(this.props.match.params.pin);
         }
+
         getQuiz = (urlExtention) => {
             axios.get('/api/quiz/' + urlExtention).then(res => {
 
@@ -61,6 +68,11 @@ class TakeQuiz extends Component{
 
         handleSubmit = (event) => {
             event.preventDefault();
+            if(validateEmail(this.state.email === false)){
+                console.log('hit')
+                toast.error('Please input a valid email')
+            }
+            
 
             const answersLength = this.state.questions.filter(question => {
                 return question.userAnswers !== undefined
@@ -72,22 +84,28 @@ class TakeQuiz extends Component{
             if(this.state.questions.length === answersLength || openEndedAnswersLength === this.state.questions.length){
                 const {
                     quizOwner,
+                    quizName,
                     quizType,
                     inputType,
                     whoToEmail,
                     questions,
                     categories,
-                    openEndedInput
+                    openEndedInput,
+                    name,
+                    email
 
                 } = this.state
                 axios.post('/api/submit', {
                     quizOwner,
+                    quizName,
                     quizType,
                     inputType,
                     whoToEmail,
                     questions,
                     categories,
-                    openEndedInput
+                    openEndedInput,
+                    name,
+                    email
             
                 }).then( response => {
                     if(response.data === 'Email sent'){
@@ -104,6 +122,7 @@ class TakeQuiz extends Component{
             }
             else{
                 toast.error('Please answer all questions.')
+                this.handleCloseModal();
                 
             }
 
@@ -147,7 +166,17 @@ class TakeQuiz extends Component{
                 }
             })
         }
-
+        handleOpenModal = () => {
+            this.setState({modalIsOpen: true});
+        }
+        handleCloseModal = () => {
+            this.setState({modalIsOpen: false});
+        }
+        handleBasicInputChange = (value, whatToChange) => {
+            this.setState({
+                [whatToChange]: value,
+            })
+        }
 
 
 
@@ -183,9 +212,41 @@ class TakeQuiz extends Component{
 
             return(
                 <div>
+                    <Modal 
+                        open={this.state.modalIsOpen} 
+                        onClose={() => this.handleCloseModal()}
+                        showCloseIcon={false}
+                        focusTrapped={true}
+                        closeOnOverlayClick={false}
+                        >
+                        <div>
+                            <input 
+                                type='text' 
+                                placeholder='Name'
+                                value={this.state.name}
+                                onChange={(event) => this.handleBasicInputChange(event.target.value, 'name')}
+                                />
+                            <input 
+                                type='text' 
+                                placeholder='Email'
+                                value={this.state.email}
+                                onChange={(event) => this.handleBasicInputChange(event.target.value, 'email')}
+                                />
+                            <button
+                                onClick={() => this.handleCloseModal()}
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={(event) => this.handleSubmit(event)}
+                            >
+                                Submit
+                            </button>
+                        </div>
+                    </Modal>
                     {questions}
                 
-                    <button onClick={(event) => this.handleSubmit(event)}>
+                    <button onClick={() => this.handleOpenModal()}>
                         submit
                     </button>
                 </div>
