@@ -24,7 +24,6 @@ class Login extends Component {
 
   handleInputChange = (value, valueTochange) => {
     this.setState({ [valueTochange]: value });
-    console.log(this.state);
   }
 
   handleLogin = (event) => {
@@ -35,11 +34,11 @@ class Login extends Component {
       this.state.password
     ) {
 
-      axios.post('http://localhost:7000/auth/login', {
+      axios.post('/auth/login', {
         username: this.state.username,
         password: this.state.password,
       }).then(response => {
-          this.props.updateUser(response.data.user.username)
+          this.props.updateUser(response.data.user)
           this.props.history.push('/home')
       }).catch(err => {
         if (err.response) {
@@ -123,7 +122,6 @@ class Login extends Component {
 
 
 function mapStateToProps(state){
-    console.log('this is redux store', state)
       return state;
   }
 

@@ -22,7 +22,6 @@ import './QuestionCard.scss';
         const correctInput = (quizType, inputType, answerIndex) => {
             switch(quizType){
                 case 'graded':
-                    console.log('hi')
                     if(inputType === 'chooseMultiple'){
                         return(
                             <div>
@@ -49,7 +48,6 @@ import './QuestionCard.scss';
 
                     } 
                 case 'sorted':
-                    console.log(options.categories)
                     const  categoryOptions = options.categories.map(category => {
                         return(
                             <option value={category}>

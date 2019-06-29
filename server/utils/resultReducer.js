@@ -38,7 +38,6 @@ const forGraded = (quizData) => {
     }
     return isTrue;
   })
-  console.log(isCorrectArray)
   var questions = quizData.questions.map ( (question, index) => {
 
     const answers = question.userAnswers.map( (answer) => {
@@ -92,13 +91,11 @@ const forSorted = (quizData) => {
         categoryList.push(question.answers[answer].category);
       })
     })
-    console.log(categoryList)
 
     let categoryScore = quizData.categories.map((category) => {
       return categoryList.filter(categoryItem => categoryItem == category).length;
     })
     const largest = Math.max.apply(Math, categoryScore);
-    console.log(categoryScore)
     return(
       `
         <div>
