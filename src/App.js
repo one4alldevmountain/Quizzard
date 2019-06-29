@@ -11,7 +11,7 @@ import './App.css';
 const App = (props) => {
 
   useEffect(() => {
-    axios.get('http://localhost:7000/auth/userassign').then(user => {
+    axios.get('/auth/userassign').then(user => {
 
       props.updateUser(user.data)
     }, [])
@@ -27,12 +27,20 @@ const App = (props) => {
 
     <div>
       <HashRouter>
+        {console.log(props)}
            {routes}
       </HashRouter>
     </div>
   );
 }
 
-
+// const mapStateToProps = (reduxState) => {
+//   const {
+//       _id,
+//   } = reduxState;
+//   return{
+//       _id,
+//   }
+// }
 
 export default connect(null, { updateUser })(App) 

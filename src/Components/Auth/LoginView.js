@@ -32,7 +32,7 @@ class Login extends Component{
     handleLogin = (event) => {
         event.preventDefault();
 
-        axios.post('http://localhost:7000/auth/login', {
+        axios.post('/auth/login', {
             username: this.state.username,
             password: this.state.password,
         }).then(response => {

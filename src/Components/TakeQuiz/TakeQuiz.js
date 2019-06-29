@@ -12,6 +12,8 @@ class TakeQuiz extends Component{
             super();
 
             this.state = {
+                quizOwner: '',
+                quizName: '',
                 quizType: 'fsdfas',
                 inputType: '',
                 questions: [],
@@ -27,10 +29,12 @@ class TakeQuiz extends Component{
             this.getQuiz(this.props.match.params.pin);
         }
         getQuiz = (urlExtention) => {
-            axios.get('http://localhost:7000/api/quiz/' + urlExtention).then(res => {
+            axios.get('/api/quiz/' + urlExtention).then(res => {
 
                 const {
                     whoToEmail,
+                    quizName,
+                    quizOwner,
                     inputType,
                     quizType,
                     categories,
@@ -39,6 +43,8 @@ class TakeQuiz extends Component{
                 
                 this.setState({
                     whoToEmail,
+                    quizName,
+                    quizOwner,
                     inputType,
                     quizType,
                     categories,
@@ -56,12 +62,16 @@ class TakeQuiz extends Component{
         handleSubmit = (event) => {
             event.preventDefault();
 
-            const checkIfAnswered = this.state.questions.filter(question => {
+            const answersLength = this.state.questions.filter(question => {
                 return question.userAnswers !== undefined
-                
-            })
-            if(this.state.questions.length === checkIfAnswered.length){
+            }).length;
+            const openEndedAnswersLength = Object.values(this.state.openEndedInput).filter(answer => {
+                return answer != '';
+            }).length
+            
+            if(this.state.questions.length === answersLength || openEndedAnswersLength === this.state.questions.length){
                 const {
+                    quizOwner,
                     quizType,
                     inputType,
                     whoToEmail,
@@ -70,7 +80,8 @@ class TakeQuiz extends Component{
                     openEndedInput
 
                 } = this.state
-                axios.post('http://localhost:7000/api/submitquiz', {
+                axios.post('/api/submit', {
+                    quizOwner,
                     quizType,
                     inputType,
                     whoToEmail,
@@ -127,6 +138,7 @@ class TakeQuiz extends Component{
         handleOpenEndedInputChange = (value, questionIndex) => {
             
             this.setState( prevState => {
+                console.log(this.state)
                 let openEndedInput = prevState.openEndedInput;
                 openEndedInput[questionIndex] = value;
                 return{

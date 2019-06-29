@@ -4,6 +4,7 @@ import HeaderView from '../Header/HeaderView';
 import './QuizForm.scss'
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { connect } from 'react-redux';
 
 
 class QuizForm extends Component{
@@ -17,6 +18,7 @@ class QuizForm extends Component{
             
             whoToEmail: [],
             categoryInput: '',
+            quizName: '',
             quizType: '',
             inputType: '',
             inputsAreValid: false,
@@ -96,6 +98,11 @@ class QuizForm extends Component{
     handleCategoryInputChange = (value) => {
         this.setState({
             categoryInput: value,
+        })
+    }
+    handleQuizNameChange = (value) => {
+        this.setState({
+            quizName: value,
         })
     }
     handleWhoToEmail = (value) => {
@@ -271,9 +278,9 @@ class QuizForm extends Component{
                 quizType,
                 whoToEmail,
             } = this.state;
-            axios.post('http://localhost:7000/api/quiz', {
-                quizName: 'placeHolder',
-                quizOwner: 'placeHolder',
+            axios.post('/api/quiz', {
+                quizName: this.state.quizName,
+                quizOwner: this.props._id,// object with email in it
                 inputType,
                 quizType,
                 whoToEmail,
@@ -364,18 +371,28 @@ class QuizForm extends Component{
                 <div className="header">
                     <HeaderView />
                 </div>
+                <div>
+                    <label>
+                        Quiz Name
+                        <input
+                            type='text'
+                            className='quizName'
+                            onChange={event => this.handleQuizNameChange(event.target.value)}
+                            />
+                    </label>
+                </div>
                 <label>
                     <div className="quiz_form_container">
                     <div className="test_type">
                     Test Type
                     </div>
                     <div className="box">
-                    <select value={this.state.quizType} onChange={event => this.handleUpperTypeChange(event.target.value, 'quizType' )}>
-                        <option value="">Please choose an option.</option>
-                        <option value="graded">Graded</option>
-                        <option value="sorted">Sorted</option>
-                        <option value="survey">Survey</option>
-                    </select>
+                        <select value={this.state.quizType} onChange={event => this.handleUpperTypeChange(event.target.value, 'quizType' )}>
+                            <option value="">Please choose an option.</option>
+                            <option value="graded">Graded</option>
+                            <option value="sorted">Sorted</option>
+                            <option value="survey">Survey</option>
+                        </select>
                     </div>
                     </div>
                 </label>
@@ -459,6 +476,15 @@ class QuizForm extends Component{
     }
 
 }
+const mapStateToProps = (reduxState) => {
+    console.log(reduxState)
+    const {
+        _id,
+    } = reduxState;
+    return{
+        _id,
+    }
+}
 
-
-export default QuizForm;
+export default connect(mapStateToProps)(QuizForm) ;
+//

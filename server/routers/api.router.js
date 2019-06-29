@@ -1,6 +1,8 @@
 const express = require('express');
 const shortid = require('shortid')
 const Quiz = require('../db/models/Quiz.model');
+const {resultReducer} = require('../middleware/resultReducer.middleware');
+const app = require('express');
 
 
 
@@ -43,6 +45,7 @@ ApiRouter.post('/quiz', (req, res) => {
 ApiRouter.get('/quiz/:pin', (req, res) => {
     Quiz.findOne({urlExtension: req.params.pin }).then( quiz => {
         res.status(200).send(quiz)
+        console.log(req.user);
     }
     ).catch(err => {
         res.status(500).send('error');
@@ -50,10 +53,11 @@ ApiRouter.get('/quiz/:pin', (req, res) => {
 })
 
 
+
+ApiRouter.post('/submit', (req, res) => {
+    resultReducer(req)
+    res.status(202).send('Completed');
+})
 module.exports = {
     ApiRouter,
 }
-
-ApiRouter.post('/submit', (req, res) => {
-    
-})
