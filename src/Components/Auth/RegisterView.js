@@ -123,10 +123,11 @@ class Register extends Component{
           <div className="register-buttons">
             <button className="register-btn">Create account</button>
             <div className="divider"></div>
-
-            <button className="register-btn" to="/Login">
-              Login
-            </button>
+            <Link to="/Login">
+              <button type='button' className="register-btn" >
+                Login
+              </button>
+            </Link>
           </div>
         </div>
       </form>

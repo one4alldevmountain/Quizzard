@@ -18,7 +18,7 @@ var Landing = props => {
           <Link to="/Pin" className="btn-1">
             Take Quiz
           </Link>
-          <div class="divider"/>
+          <div className="divider"/>
           <Link to="/Register" className="btn-1">
             Make Quiz
           </Link>
