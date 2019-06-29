@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 import './Search.scss';
 import HeaderView from "../Header/HeaderView";
 // import axios from "axios";
@@ -23,20 +24,34 @@ class SearchView extends Component {
   render() {
     let { searchResults, title } = this.state;
     return (
-      <div>
+      <div className="search-page">
         <HeaderView />
+        <Link 
+        className="back-arrow"
+        to="/Home">&#8592;</Link>
         <center>
-          <h3>SEARCH PAGE</h3>
+          <h3 className="search-page-title">Find a Quiz</h3>
         </center>
-        <center>
+
+          <div> 
+             <hr />
+          </div>
+       
+
+        <div className="search-box">
           <input
+            className="search-input-box"
             value={title}
-            style={{ width: "250px", height: "30px" }}
             placeholder="Search by Title..."
             onChange={event => this.handleChange("title", event.target.value)}
           />
-        </center>
-        <button onClick={() => this.searchTitle()}>SEARCH</button>
+
+          <button 
+          className="search-btn"
+          onClick={() => this.searchTitle()}>Search</button>
+        </div>
+        
+       
       </div>
       //map over searchResults?
       //{searchResults.map(title=>())}
