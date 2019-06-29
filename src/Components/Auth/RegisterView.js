@@ -7,7 +7,7 @@ import MaterialIcon from 'material-icons-react';
 import { Link } from 'react-router-dom';
 import logo1 from '../images/logo1.png';
 import './Register.scss';
-import HeaderView from '../Header/HeaderView';
+import { validateEmail } from '../utils/validateEmail';
 
 
 class Register extends Component{
@@ -37,6 +37,11 @@ class Register extends Component{
             this.state.password ||
             this.state.email
         ) {
+          if(!validateEmail(this.state.email)){
+            toast.error('Input a valid email')
+            return;
+          }
+          else{
 
             axios.post('/auth/register', {
                 username: this.state.username,
@@ -56,6 +61,8 @@ class Register extends Component{
                     toast.error('missing fields')
                 }
             })
+          }
+
         }
         else{
             toast.error('Missing Fields')
@@ -66,7 +73,7 @@ class Register extends Component{
     render(){
         
         return (
-        <div><HeaderView />
+        <div>
         <div className="register-form-parent-div">
     <section className="card">
     

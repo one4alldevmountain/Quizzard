@@ -3,10 +3,12 @@ import routes from './routes';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { updateUser } from './actions';
-import { HashRouter } from 'react-router-dom';
+import { HashRouter, Route } from 'react-router-dom';
 import { toast } from 'react-toastify'
+import HeaderView from './Components/Header/HeaderView';
 import 'react-toastify/dist/ReactToastify.css';
-import './App.css';
+import './App.scss';
+import './cssReset.css';
 
 const App = (props) => {
 
@@ -25,10 +27,14 @@ const App = (props) => {
   return (
 
 
-    <div>
+    <div >
+      
       <HashRouter>
-        {console.log(props)}
+        <HeaderView/>
+        <div className='pageContainer'>
+
            {routes}
+        </div>
       </HashRouter>
     </div>
   );

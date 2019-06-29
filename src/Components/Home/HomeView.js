@@ -1,5 +1,4 @@
 import React from 'react';
-import HeaderView from '../Header/HeaderView';
 import { Link } from 'react-router-dom';
 
 
@@ -7,7 +6,6 @@ import { Link } from 'react-router-dom';
 const Home = (props) => {
     return (
         <div>
-            <HeaderView />
 
 
             <div className="home-top">

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import logo1 from '../images/logo1.png';
 import { Link } from 'react-router-dom';
 import './GetQuizByPin.scss';
-import HeaderView from '../Header/HeaderView';
 
 
 
@@ -36,7 +35,6 @@ class GetQuizByPin extends Component {
     render() {
 
         return (<div>
-            <HeaderView />
             <div className="pin-form-parent">
                 <div className="pin-container">
                     <Link to="/">

@@ -289,6 +289,7 @@ class QuizForm extends Component{
     
             }).then(response => {
                     toast.success('Quiz Created');
+                    this.props.history.push('/home');
                 
             }).catch(err => {
                 toast.error('Failed to post quiz');

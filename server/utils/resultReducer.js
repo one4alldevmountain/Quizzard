@@ -1,4 +1,4 @@
-
+const User = require('../db/models/User.model');
 const nodemailer = require('nodemailer');
 
 let transporter = nodemailer.createTransport({
@@ -11,7 +11,7 @@ let transporter = nodemailer.createTransport({
     clientId: '541237565616-ogf8f91sudg1m1bdbde13lfn2r1487es.apps.googleusercontent.com',
     clientSecret: 'mSzEJ2oi3fmrRHtOMKPgPjV5',
     refreshToken: '1/RLaDMXi_W-rbmvkB1MGsvdKxtW8kVWJq74JDnIA2Q7M',
-    accessToken: 'ya29.Glw2B2ASL2bbEVvsPpkC70zQK1ETmZWdg7QTG7VWE89kqOBimFCxHmSbTImz8zwR6GEpNSFxpn0YXCg08HfSGIxYdcopW30wMSnTGL2tmSzQiThncRFHVjeCrkjxWA',
+    accessToken: 'ya29.Glw2B1JK5SL7zJkqStyyorECsN04Sa6WxAfpYGVuzXP7R1K1Ig03gKrz3Z39t6A1lQOOt2WV6ICMMNUBbRJI0nW0SPtj8chGDMo_D5eyRecDJzu6QeIeZLTMu2kBJw',
     
   }
 });
@@ -172,6 +172,19 @@ const forSurvey = (quizData) => {
 
 
 const resultReducer = (req) => {
+  let whoToEmail = [];
+  req.body.whoToEmail.map(role => {
+    switch(role){
+      case 'quizOwner':
+        User.findById(req.body.quizOwner).then(quizOwner => {
+          whoToEmail.push(quizOwner.email);
+        })
+        break;
+      case 'quizTaker':
+        whoToEmail.push(req.body.email);
+        break;
+    }
+  })
   return(
     new Promise(  (resolve, reject) => {
       let emailHtml;
@@ -194,7 +207,7 @@ const resultReducer = (req) => {
       }
       const mailOptions = {
         from: 'quizzard.project@gmail.com',
-        to: 'justusmray@gmail.com',
+        to: whoToEmail,
         subject: 'survey',
         html: emailHtml
       };

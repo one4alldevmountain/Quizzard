@@ -44,7 +44,6 @@ ApiRouter.post('/quiz', (req, res) => {
 ApiRouter.get('/quiz/:pin', (req, res) => {
     Quiz.findOne({urlExtension: req.params.pin }).then( quiz => {
         res.status(200).send(quiz)
-        console.log(req.user);
     }
     ).catch(err => {
         res.status(500).send('error');

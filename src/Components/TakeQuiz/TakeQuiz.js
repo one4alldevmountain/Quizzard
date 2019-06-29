@@ -37,6 +37,7 @@ class TakeQuiz extends Component{
 
         getQuiz = (urlExtention) => {
             axios.get('/api/quiz/' + urlExtention).then(res => {
+                console.log(res.data)
 
                 const {
                     whoToEmail,
@@ -109,7 +110,8 @@ class TakeQuiz extends Component{
             
                 }).then( response => {
                     if(response.data === 'Email sent'){
-                        toast.success('Test Completed')
+                        toast.success('Completed')
+                        this.props.history.push('/pin');
 
                     }
                     
@@ -210,8 +212,24 @@ class TakeQuiz extends Component{
                ) 
             }): null;
 
+            
+
             return(
                 <div>
+
+                    <h1>{this.state.quizName}</h1>
+                    
+                    <div>
+                        {questions}
+
+                    </div>
+                
+                    <button onClick={() => this.handleOpenModal()}>
+                        submit
+                    </button>
+
+
+                    {/* modal */}
                     <Modal 
                         open={this.state.modalIsOpen} 
                         onClose={() => this.handleCloseModal()}
@@ -244,11 +262,6 @@ class TakeQuiz extends Component{
                             </button>
                         </div>
                     </Modal>
-                    {questions}
-                
-                    <button onClick={() => this.handleOpenModal()}>
-                        submit
-                    </button>
                 </div>
             )
         }
