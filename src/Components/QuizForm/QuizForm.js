@@ -370,18 +370,9 @@ class QuizForm extends Component {
 
         return (
             <div>
-                <div className="header">
-                    <HeaderView />
-                </div>
+                
                 <div>
-                    <label>
-                        Quiz Name
-                        <input
-                            type='text'
-                            className='quizName'
-                            onChange={event => this.handleQuizNameChange(event.target.value)}
-                            />
-                    </label>
+                  
                 </div>
                 <label>
                     <div className="quiz_form_container">
@@ -389,10 +380,18 @@ class QuizForm extends Component {
                             <Link
                                 className="form-back-arrow"
                                 to="/Home">&#8592;</Link>
-                        </div>
-
-
+                       
+                       </div>
+                        <div className="quiz-form-title-container">
+                        <p className="quiz-form-title">Quiz Title:</p>
+                        <input
+                            type='text'
+                            className="quiz-form-title-input"
+                            onChange={event => this.handleQuizNameChange(event.target.value)}
+                            />
+                    </div>
                         <div className="test-type-container">
+                            
                             <div className="test_type">
                                 Test Type:
 
