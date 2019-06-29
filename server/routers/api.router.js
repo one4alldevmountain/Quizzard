@@ -55,7 +55,8 @@ ApiRouter.get('/quiz/:pin', (req, res) => {
 
 ApiRouter.post('/submit', (req, res) => {
     resultReducer(req).then(result => {
-        res.status(result.data);
+        console.log(result);
+        res.send('Email sent');
     })
     .catch( err => {
         res.status(500).send(err)

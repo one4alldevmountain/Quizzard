@@ -90,8 +90,8 @@ class TakeQuiz extends Component{
                     openEndedInput
             
                 }).then( response => {
-                    if(response.data === 'success'){
-                        toast.success('Completed')
+                    if(response.data === 'Email sent'){
+                        toast.success('Test Completed')
 
                     }
                     

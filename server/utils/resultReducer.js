@@ -11,7 +11,7 @@ let transporter = nodemailer.createTransport({
     clientId: '541237565616-ogf8f91sudg1m1bdbde13lfn2r1487es.apps.googleusercontent.com',
     clientSecret: 'mSzEJ2oi3fmrRHtOMKPgPjV5',
     refreshToken: '1/RLaDMXi_W-rbmvkB1MGsvdKxtW8kVWJq74JDnIA2Q7M',
-    accessToken: 'ya29.Glw1BxBWxIITNWJPT4LsiNOFOo1tKnr87vlANxwPMPwJdk-Aqe6TSlGv-cHiFx_6V1TJicdDdlxACq4C0nVTpSw8Tj8XPZcso-Mn_aIcwUD-yESFkwMviq06I6SGCQ',
+    accessToken: 'ya29.Glw2B4vwOFy7k49VhsOnS7OXpHQyC_HfCCjglO5St4W4URb3cWvFs1dVXgwtB4dfMCPTOGo49z18NjCAWRX0sMjgE80v36IU3glvY8M492stf4sJyvP7AGNE4TrDSA',
     
   }
 });
@@ -34,23 +34,46 @@ const forSurvey = (quizData) => {
   let dataToMap;
   switch(quizData.inputType){
     case 'openEnded': 
-      data
+      dataToMap = quizData.openEndedInput;
     break;
 
     default : 
+      var questions = quizData.questions.map ( (question, index) => {
 
-      break
+        const answers = question.userAnswers.map( (answer, index) => {
+          return (
+            `
+              <div>
+              <p> - ${question.answers[answer].answerContent} </p>
+              </div>
+            `
+          )
+        }).join('');
+        return(
+            `
+            <div style={"color" : "red"}>
+            <h3> ${index + 1}. ${question.questionContent}</h3>
+            
+            <h4>User Answer</h4>
+            <h5>${answers}</h5>
+            <hr/>
+            </div>
+            `
+         )
+      }).join('');
+      break;
   }
     return(
-      questionsArray.map(questionObject => {
-        return (
           `
           <div>
-            <p>${questionObject.questionContent}</p>
+            <h2>Questions</h2>
+            <hr/>
+              <div>
+                ${questions}
+              </div>
           </div>
           `
-        )
-      })
+       
     )
 }
 
@@ -89,7 +112,7 @@ const resultReducer = (req) => {
               from: 'quizzard.project@gmail.com',
               to: 'justusmray@gmail.com',
               subject: 'survey',
-              html: `<h1>${forSurvey(req.body.questions)}</h1>`
+              html: `<h1>${forSurvey(req.body)}</h1>`
             };
           break;
   
