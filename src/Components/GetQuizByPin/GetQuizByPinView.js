@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo1 from '../images/logo1.png';
 import { Link } from 'react-router-dom';
 import './GetQuizByPin.scss';
+import HeaderView from '../Header/HeaderView';
 
 
 
@@ -34,7 +35,8 @@ class GetQuizByPin extends Component {
 
     render() {
 
-        return (
+        return (<div>
+            <HeaderView />
             <div className="pin-form-parent">
                 <div className="pin-container">
                     <Link to="/">
@@ -62,7 +64,8 @@ class GetQuizByPin extends Component {
                     </section>
                 </div>
 
-
+               
+            </div>
             </div>
         );
     }
