@@ -44,7 +44,8 @@ class Register extends Component {
       }).then(response => {
         if (response.data.message = 'Registered and Logged In') {
           this.props.updateUser(response.data.user)
-          this.props.history.push('/Login')
+          this.props.history.push('/home')
+          toast.success('Registered and Logged in')
         }
       }).catch(err => {
         if (err.response) {
@@ -125,7 +126,7 @@ class Register extends Component {
                   className="register-btn">Create account</button>
 
                   <Link className="login-link" to="/Login">
-                    Already have an Account? Login
+                    Already have an Account? Login.
                   </Link>
                 </div>
               </div>

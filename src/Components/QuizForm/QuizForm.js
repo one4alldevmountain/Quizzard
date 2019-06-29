@@ -289,8 +289,8 @@ class QuizForm extends Component {
                 questions: quiz.questions,
 
             }).then(response => {
-                toast.success('Quiz Created');
-                this.props.history.push('/home');
+                console.log(response)
+                this.props.history.push('/home'+ `/${response.data.urlExtension}`)
                 
             }).catch(err => {
                 toast.error('Failed to post quiz');
@@ -370,6 +370,7 @@ class QuizForm extends Component {
 
         return (
             <div>
+<<<<<<< HEAD
                 <div className="header">
                 </div>
                 <div>
@@ -385,38 +386,20 @@ class QuizForm extends Component {
                 <label>
                     <div className="quiz_form_container">
                         <div className="backarrow-container">
+=======
+                
+                      <div className="backarrow-container">
+>>>>>>> e78216d7890ba6228d4119a3ff7bca1530809d17
                             <Link
                                 className="form-back-arrow"
                                 to="/Home">&#8592;</Link>
-                        </div>
+                       
+                       </div>
 
 
-                        <div className="test-type-container">
-                            <div className="test_type">
-                                Test Type:
-
-                                <select className="test-type-select" value={this.state.quizType} onChange={event => this.handleUpperTypeChange(event.target.value, 'quizType')}>
-                                    <option className="option" value="">Please choose a quiz type</option>
-                                    <option className="option" value="graded">Graded</option>
-                                    <option className="option" value="sorted">Sorted</option>
-                                    <option className="option" value="survey">Survey</option>
-                                </select>
-                            </div>
-                        </div>
-
-                    </div>
-                </label>
                 <label>
                     <div className="quiz_form_container">
-                        <div className="input_type">
-                            Question Type:
-                <select className="input-type-select" value={this.state.inputType} onChange={event => this.handleUpperTypeChange(event.target.value, 'inputType')}>
-
-                                {this.state.quizType ? <option>Please select the question type</option> : <option>Please select a Quiz type first</option>}
-                                {inputType}
-                            </select>
-                        </div>
-                    </div>
+                      
                     <section className="email-section">
                         <div className="who-to-mail-title-container">
                             <p className="who-to-mail-title"> Who To Email: </p>
@@ -444,16 +427,47 @@ class QuizForm extends Component {
                                 />
                             </div>
 
+                        </div>
+
+                    
+
+
+                        <div className="quiz-form-title-container">
+                        <p className="quiz-form-title">Quiz Title:</p>
+                        <input
+                            type='text'
+                            className="quiz-form-title-input"
+                            onChange={event => this.handleQuizNameChange(event.target.value)}
+                            />
+                    </div>
+                        <div className="test-type-container">
+                            
+                            <div className="test_type">
+                                Test Type:
+
+                                <select className="test-type-select" value={this.state.quizType} onChange={event => this.handleUpperTypeChange(event.target.value, 'quizType')}>
+                                    <option className="option" value="">Select a quiz type</option>
+                                    <option className="option" value="graded">Graded</option>
+                                    <option className="option" value="sorted">Sorted</option>
+                                    <option className="option" value="survey">Survey</option>
+                                </select>
+                            </div>
+
+                            <div className="input_type">
+                                 Question Type:
+                                          <select className="input-type-select" value={this.state.inputType} onChange={event => this.handleUpperTypeChange(event.target.value, 'inputType')}>
+
+                                            {this.state.quizType ? <option>Select the question type</option> : <option>Select a Quiz type first</option>}
+                                            {inputType}
+                                          </select>
+                             </div>
 
 
                         </div>
-
-                    </section>
-
+                        </section>
+                    </div>
                 </label>
-
-
-
+                
 
 
                 <hr />
