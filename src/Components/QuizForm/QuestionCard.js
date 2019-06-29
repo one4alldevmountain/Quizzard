@@ -1,4 +1,5 @@
 import React from 'react';
+import './QuestionCard.scss';
 
 
 
@@ -75,6 +76,7 @@ import React from 'react';
             return(
                 <div key={index}>
                     <input 
+                        className="answer-choice-input"
                         onChange={e =>  options.changeAnswerCb(e.target.value, options.questionIndex, index)}
                         type='text'
                         placeholder='enter answer here'
@@ -91,7 +93,11 @@ import React from 'react';
         const button = (inputType) => {
             if(inputType === 'multipleChoice' || inputType === 'chooseMultiple'){
                 return(
-                    <button onClick={() => options.addAnswerCb(options.questionIndex)}>add answer</button>
+                    <button 
+                    className="add-answer-button"
+                    onClick={() => options.addAnswerCb(options.questionIndex)}>
+                    Add an Answer
+                    </button>
                 )
             }
             return null;
@@ -116,9 +122,11 @@ export const QuestionCard = props => {
     
 
     return(
-        <div>
-            <div>
-                <textarea placeholder='question' onChange={ (event) =>  props.handleQuestionChange(event.target.value, props.questionIndex)}/>
+        <div className="question-textarea-container">
+            <div className="question-textarea-parent">
+                <textarea 
+                className="question-textarea"
+                placeholder='question' onChange={ (event) =>  props.handleQuestionChange(event.target.value, props.questionIndex)}/>
             </div>
             {console.log(props)}
             {displayAnswers({
