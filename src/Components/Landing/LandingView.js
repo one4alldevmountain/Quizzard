@@ -19,7 +19,6 @@ var Landing = props => {
             Take Quiz
           </Link>
           <div className="divider"/>
-    {console.log(props)}
           {props.email === 'guest' ? 
           <Link to="/Register" className="btn-1">
             Make Quiz
@@ -37,7 +36,6 @@ var Landing = props => {
 };
 
 const mapStateToProps = (reduxState) => {
-  console.log(reduxState)
   const {
       email,
   } = reduxState;
