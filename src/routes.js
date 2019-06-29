@@ -19,6 +19,7 @@ export default (
        <Route component={LoginView} path="/login" />
        <Route component={QuizForm} path="/form" />
        <Route component={HomeView} path="/home/:urlextension" /> 
+       <Route component={HomeView} path="/home" /> 
        <Route component={SearchView} path="/search" /> 
     </Switch>
 

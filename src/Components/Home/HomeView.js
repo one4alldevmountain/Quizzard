@@ -16,7 +16,10 @@ class Home extends Component {
 
        componentDidMount(){
            console.log(this.props);
-           toast(`Quiz Pin: ${this.props.match.params.urlextension}`, {autoClose: false, draggable: false, closeOnClick: false})
+           if(this.props.match.params.urlextension){
+
+               toast(`Quiz Pin: ${this.props.match.params.urlextension}`, {autoClose: false, draggable: false, closeOnClick: false})
+           }
        }
 
 
