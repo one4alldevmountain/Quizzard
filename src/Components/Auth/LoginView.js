@@ -7,7 +7,6 @@ import MaterialIcon from 'material-icons-react';
 import { Link } from 'react-router-dom';
 import logo1 from '../images/logo1.png';
 import './Login.scss';
-import HeaderView from '../Header/HeaderView';
 
 
 class Login extends Component {
@@ -62,7 +61,6 @@ class Login extends Component {
 
     return (
       <div>
-        <HeaderView />
         <div className="login-form-parent-div">
           <section className="card">
 
