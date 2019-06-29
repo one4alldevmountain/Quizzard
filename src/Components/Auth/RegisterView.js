@@ -124,10 +124,9 @@ class Register extends Component {
                   <button 
                   onClick={this.handleRegister}
                   className="register-btn">Create account</button>
-                  <div className="divider"></div>
 
-                  <Link className="login-btn" to="/Login">
-                    Login
+                  <Link className="login-link" to="/Login">
+                    Already have an Account? Login
                   </Link>
                 </div>
               </div>
