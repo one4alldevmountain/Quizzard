@@ -2,7 +2,7 @@ const User = require('../db/models/User.model');
 const nodemailer = require('nodemailer');
 
 let transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
+  service: 'Gmail',
   port: 465,
   secure: true,
   auth: {
@@ -11,8 +11,6 @@ let transporter = nodemailer.createTransport({
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
     refreshToken: process.env.REFRESH_TOKEN,
-    accessToken: process.env.ACCESS_TOKEN,
-
     
   }
 });
