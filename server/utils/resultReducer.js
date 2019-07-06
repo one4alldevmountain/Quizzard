@@ -8,10 +8,11 @@ let transporter = nodemailer.createTransport({
   auth: {
     type: 'OAuth2',
     user: "quizzard.project@gmail.com",
-    clientId: '',
-    clientSecret: '',
-    refreshToken: '',
-    accessToken: '',
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    refreshToken: process.env.REFRESH_TOKEN,
+    accessToken: process.env.ACCESS_TOKEN,
+
     
   }
 });
