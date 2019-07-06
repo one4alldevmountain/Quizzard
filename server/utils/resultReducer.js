@@ -8,10 +8,10 @@ let transporter = nodemailer.createTransport({
   auth: {
     type: 'OAuth2',
     user: "quizzard.project@gmail.com",
-    clientId: '541237565616-ogf8f91sudg1m1bdbde13lfn2r1487es.apps.googleusercontent.com',
-    clientSecret: 'mSzEJ2oi3fmrRHtOMKPgPjV5',
-    refreshToken: '1/RLaDMXi_W-rbmvkB1MGsvdKxtW8kVWJq74JDnIA2Q7M',
-    accessToken: 'ya29.Glw2B9vDvybXF6KRWjKE3TD9d7IAHL5lSpvtmQcR2CSkPnd1hFuuUdf2Lfs_aIjpdqj60zsJYIztagB4zad5fPFItWsTZdqKJ4zUY_5kSTXgWLOOaWYM82DXmO80pQ',
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    refreshToken: process.env.REFRESH_TOKEN,
+    accessToken: process.env.ACCESS_TOKEN,
     
   }
 });
