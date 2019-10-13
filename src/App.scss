@@ -1,6 +1,21 @@
-// .pageContainer{
-//     max-width: 1010px;
-//     min-height: 100vh;
-//     background-color: whitesmoke;
-//     margin: auto;
-// }
+@import './globalVariable.scss';
+
+
+.page-container{
+    min-height: 100vh;
+    min-width: 100;
+    background-color: $secondary-color;
+    margin: auto;
+
+    .center-elements{
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+button:focus, input:focus{
+    outline: none;
+}
+

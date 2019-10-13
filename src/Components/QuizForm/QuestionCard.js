@@ -1,13 +1,6 @@
 import React from 'react';
 import './QuestionCard.scss';
 
-
-
-
-
-
-
-
     const displayAnswers = (options = {
             answers: [],
             categories: [],

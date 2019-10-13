@@ -31,7 +31,7 @@ const App = (props) => {
       
       <HashRouter>
         <HeaderView/>
-        <div className='pageContainer'>
+        <div className='page-container'>
 
            {routes}
         </div>

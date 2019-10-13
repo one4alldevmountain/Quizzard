@@ -37,12 +37,7 @@ class GetQuizByPin extends Component {
         return (<div>
             <div className="pin-form-parent">
                 <div className="pin-container">
-                    <Link to="/">
-                        <img
-                            className="pin-logo"
-                            src={logo1}
-                            alt="logo" />
-                    </Link>
+                    
 
                     <section className="pin-input-section">
                         <p className="pin-title">Enter Your Pin:</p>
