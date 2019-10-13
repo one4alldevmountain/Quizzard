@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import './Home.scss';
 import { toast } from 'react-toastify';
+import { connect } from 'react-redux';
+import axios from 'axios';
 
 
 
@@ -10,50 +11,51 @@ class Home extends Component {
          super(props);
      
          this.state = {
-             user: ""      
+             quizzes: [],      
          };
        }
 
        componentDidMount(){
-           console.log(this.props);
            if(this.props.match.params.urlextension){
 
                toast(`Quiz Pin: ${this.props.match.params.urlextension}`, {autoClose: false, draggable: false, closeOnClick: false})
            }
+           this.getQuizzes(this.props._id);
        }
 
+       getQuizzes = (id) => {
+            axios.get(`/api/quizzes/${id}`).then(res => {
+                this.setState({quizzes: res.data});
+            })
+       }
 
 
 render (){
 
+    const quizzes = this.state.quizzes.map(quiz => {
+        return(
+            <div className='quiz-card' onClick={() => this.props.history.push(`/quiz/${quiz.urlExtension}`)}>
+                <h2>{quiz.quizName}</h2>
+                <p>{quiz.questions.length} Questions</p>
+                <p>Quiz Type: {quiz.quizType}</p>
+                <p>Quiz Pin: {quiz.urlExtension}</p>
+            </div>
+        )
+    })
     return (
         <div>
-
-            {/* <li>{this.props.user.username}</li> */}
-
-            <div className="home-top">
-                <div className="user-info">
-                     <p className="user-name">{this.props.username}</p>
+            <div>
+        
+            </div>
+            <div className='my-quizzes'>
+                <div className='divider'>
+                    <h1>My quizzes</h1>
+                    <button onClick={() => this.props.history.push('/form')}>Create quiz</button> 
                 </div>
-                <div className="select-container">
-                     {/* <select className="select-input">
-                        <option value="Please choose an option.">Please choose an option</option>
-                        <option value="Find a Quiz">Find a Quiz</option>
-                        <option value="Make a Quiz">Make a Quiz</option>
-                    </select> */}
-
-
-                        <Link 
-                        className="find-btn"
-                        to="/Search">Find a Quiz</Link>
-                        <Link 
-                        className="create-btn"
-                        to="/Form">Create a Quiz</Link>
+                
+                <div className='quiz-container'>
+                    {quizzes}   
                 </div>
-
-                   
-
-
             </div>
         </div>
     );
@@ -62,12 +64,14 @@ render (){
 
 }
 
-// function mapStateToProps(state){
-//     return {
-//          user: state.user
-//     };
-// }
 
-// export default connect(mapStateToProps, {updateUser})(Home);
+const mapStateToProps = (reduxState) => {
+  const {
+      _id,
+  } = reduxState;
+  return{
+      _id,
+  }
+}
 
-export default Home;
+export default connect(mapStateToProps)(Home) 

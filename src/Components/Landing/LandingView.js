@@ -11,7 +11,6 @@ var Landing = props => {
         </div>
         <div className='landing-div right' onClick={() => props.history.push(makeQuizUrl)}>
               <h2>Make Quiz</h2>
-              {console.log(props)}
         </div>
     </div>
   );

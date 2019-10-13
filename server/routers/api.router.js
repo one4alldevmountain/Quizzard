@@ -52,6 +52,13 @@ ApiRouter.get('/quiz/:pin', (req, res) => {
 })
 
 
+ApiRouter.get('/quizzes/:userId', (req, res) => {
+    Quiz.find({quizOwner: req.params.userId}).then( (quizzes) => {
+        res.status(200).send(quizzes);
+    }).catch(err => {
+        res.status(500).send(err);
+    })
+})
 
 ApiRouter.post('/submit', (req, res) => {
     resultReducer(req).then(result => {
@@ -62,6 +69,7 @@ ApiRouter.post('/submit', (req, res) => {
     })
     
 })
+
 module.exports = {
     ApiRouter,
 }

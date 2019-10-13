@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { QuestionCard } from './QuestionCard';
-import HeaderView from '../Header/HeaderView';
-import { Link } from 'react-router-dom';
 import './QuizForm.scss'
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -10,11 +8,8 @@ import { connect } from 'react-redux';
 
 class QuizForm extends Component {
 
-
-
     constructor() {
         super();
-
         this.state = {
 
             whoToEmail: [],
@@ -25,20 +20,12 @@ class QuizForm extends Component {
             inputsAreValid: false,
             quiz: {
                 categories: [
-
                 ],
                 questions: [
-
                 ]
             }
-
-
-
-
         }
     }
-
-    //input change handlers
     handleUpperTypeChange = (value, whatToUpdate) => {
         this.setState({
             [whatToUpdate]: value,
@@ -63,8 +50,6 @@ class QuizForm extends Component {
                 ]
             }
         })
-
-
     }
     handleQuestionChange = (content, index) => {
         this.setState((previousState) => {
@@ -80,7 +65,6 @@ class QuizForm extends Component {
                 }
             }
         })
-
     }
     handleAnswerChange = (content, questionIndex, answerIndex) => {
         this.setState(prevState => {
@@ -129,7 +113,6 @@ class QuizForm extends Component {
         })
     }
 
-
     handleAddQuestion = (quizType) => {
         let questionsArray = this.state.quiz.questions.slice(0);
 
@@ -147,7 +130,6 @@ class QuizForm extends Component {
             });
 
         }
-
 
         this.setState(prevState => {
             return {
@@ -213,7 +195,6 @@ class QuizForm extends Component {
             }
         })
     }
-
     handleAddCorrectAnswer = (questionIndex, answerIndex, inputType) => {
 
         const indexOfAnswer = this.state.quiz.questions[questionIndex].correctAnswers ? this.state.quiz.questions[questionIndex].correctAnswers.findIndex(answer => {
@@ -296,13 +277,10 @@ class QuizForm extends Component {
             })
         }
     }
-
     displayQuestions = (quizType, inputType, questions) => {
-
         if (questions) {
             return (
                 <div>
-
                     {questions.map((question, index) => {
                         return (
                             <div key={index}>
@@ -318,7 +296,6 @@ class QuizForm extends Component {
                                         handleAddAnswer={this.handleAddAnswer}
                                         handleAddCorrectAnswer={this.handleAddCorrectAnswer}
                                         handleAddAnswerCategory={this.handleAddAnswerCategory}
-
                                     />
                                 </div>
                             </div>
@@ -331,14 +308,6 @@ class QuizForm extends Component {
             return null;
         }
     }
-
-
-
-
-
-
-
-
     render() {
         const availableOptions = {
             graded: [
@@ -359,13 +328,10 @@ class QuizForm extends Component {
                 'openEnded',
             ]
         }
-
         const inputType = this.state.quizType ?
             availableOptions[this.state.quizType].map(option => {
                 return <option value={option}>{option}</option>
             }) : null
-
-
 
         return (
             <div>
@@ -382,13 +348,6 @@ class QuizForm extends Component {
                 </div>
                 <label>
                     <div>
-                        <div className="backarrow-container">
-                            <Link
-                                className="form-back-arrow"
-                                to="/Home">&#8592;</Link>
-                        </div>
-
-
                         <div>
                             <div>
                                 Test Type:
@@ -401,7 +360,6 @@ class QuizForm extends Component {
                                 </select>
                             </div>
                         </div>
-
                     </div>
                 </label>
                 <label>
@@ -430,7 +388,6 @@ class QuizForm extends Component {
                                     onChange={(event) => this.handleWhoToEmail(event.target.value)}
                                 />
                             </div>
-
                             <div>
                                 Quiz Taker  <input
                                     type='checkbox'
@@ -439,28 +396,15 @@ class QuizForm extends Component {
                                     onChange={(event) => this.handleWhoToEmail(event.target.value)}
                                 />
                             </div>
-
-
-
                         </div>
-
                     </section>
-
                 </label>
-
-
-
-
-
                 <hr />
                 {
                     this.state.inputsAreValid ?
                         <div>
                             <center><h1>{this.state.quizType}</h1> </center>
-
                             <hr />
-
-
                             {
                                 this.state.quizType === 'sorted' ?
                                     <div>
@@ -482,28 +426,20 @@ class QuizForm extends Component {
                                     </div> : null
                             }
                             {this.displayQuestions(this.state.quizType, this.state.inputType, this.state.quiz.questions)}
-
-
                             <div>
-
                                 <button
                                     onClick={() => this.handleAddQuestion(this.state.quizType)}>
                                     <p>Add a Question</p>
                                     &#43;</button>
-
                                 <button
                                     type='submit' onClick={(event) => this.handleSubmitForm(event)}> Create Quiz </button>
-
                             </div>
                         </div> :
                         null
                 }
-
             </div>
-
         )
     }
-
 }
 const mapStateToProps = (reduxState) => {
     const {
@@ -513,6 +449,4 @@ const mapStateToProps = (reduxState) => {
         _id,
     }
 }
-
 export default connect(mapStateToProps)(QuizForm) ;
-//
