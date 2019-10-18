@@ -1,0 +1,9 @@
+@import '../../globalVariable.scss';
+.question-card{
+    background-color: $main-color;
+    margin-bottom: 10px;
+
+    quiz-form-input{
+        border-radius: 5px;
+    }
+}

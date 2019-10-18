@@ -28,13 +28,22 @@ class Home extends Component {
                 this.setState({quizzes: res.data});
             })
        }
+       deleteQuiz = (quizId) => {
+           axios.delete(`/api/deletequiz/${quizId}`).then(res => {
+               if(res.status === 204){
+                   toast.success('Deleted',{autoClose: 700})
+               }
+           })
+           this.getQuizzes(this.props._id);
+       }
 
 
 render (){
 
     const quizzes = this.state.quizzes.map(quiz => {
         return(
-            <div className='quiz-card' onClick={() => this.props.history.push(`/quiz/${quiz.urlExtension}`)}>
+            <div className='quiz-card' key={quiz._id}>
+                <div className='exit' onClick={() => this.deleteQuiz(quiz._id)}>x</div>
                 <h2>{quiz.quizName}</h2>
                 <p>{quiz.questions.length} Questions</p>
                 <p>Quiz Type: {quiz.quizType}</p>
@@ -43,6 +52,7 @@ render (){
         )
     })
     return (
+        
         <div>
             <div>
         

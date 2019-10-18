@@ -3,8 +3,6 @@ import axios from 'axios';
 import { updateUser } from '../../actions';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
-import MaterialIcon from 'material-icons-react';
-import { Link } from 'react-router-dom';
 import './Auth.scss';
 
 

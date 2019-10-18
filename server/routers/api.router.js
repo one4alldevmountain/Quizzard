@@ -70,6 +70,14 @@ ApiRouter.post('/submit', (req, res) => {
     
 })
 
+ApiRouter.delete('/deletequiz/:quizId', (req, res) => {
+    Quiz.deleteOne({_id: req.params.quizId}).then(() => {
+        res.sendStatus(204);
+    }).catch(err => {
+        res.status(500).send(err)
+    })
+})
+
 module.exports = {
     ApiRouter,
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import './QuestionCard.scss';
+import'./QuizForm.scss';
 
     const displayAnswers = (options = {
             answers: [],
@@ -38,17 +39,15 @@ import './QuestionCard.scss';
                                 onChange={() => options.addCorrectAnswerCb(options.questionIndex, answerIndex, options.inputType)}
                                 />
                         )
-
                     } 
                 case 'sorted':
-                    const  categoryOptions = options.categories.map(category => {
+                    const  categoryOptions = options.categories.map((category, index) => {
                         return(
-                            <option value={category}>
+                            <option key={index} value={category}>
                                 {category}
                             </option>
                         )
                     })
-
                     return(
                         <select value={options.answers.category} onChange={(event) => options.addAnswerCategoryCb(options.questionIndex, answerIndex, event.target.value )}>
                             <option>select a category</option>
@@ -59,15 +58,15 @@ import './QuestionCard.scss';
                     return(
                         null
                     )
+                default: return(null);
             }
 
         }
-
         const mappedAnswers = options.answers.map((answer, index) => {
             return(
                 <div key={index}>
                     <input 
-                        className="answer-choice-input"
+                        className="quiz-form-input"
                         onChange={e =>  options.changeAnswerCb(e.target.value, options.questionIndex, index)}
                         type='text'
                         placeholder='enter answer here'
@@ -75,12 +74,9 @@ import './QuestionCard.scss';
                         readOnly={options.inputType === 'boolean'}
                         />
                     {correctInput(options.quizType, options.inputType, index,)}
-
                 </div>
-
             )
         })
-        
         const button = (inputType) => {
             if(inputType === 'multipleChoice' || inputType === 'chooseMultiple'){
                 return(
@@ -100,41 +96,29 @@ import './QuestionCard.scss';
                 
             </div>
         )
-
     }
-    
-     
-
-
-
-
 
 export const QuestionCard = props => {
-    
-
     return(
-        <div className="question-textarea-container">
-            <div className="question-textarea-parent">
+        <div className='question-card'>
+            <div className='question-div'>
                 <textarea 
-                className="question-textarea"
                 placeholder='question' onChange={ (event) =>  props.handleQuestionChange(event.target.value, props.questionIndex)}/>
             </div>
-            {console.log(props)}
-            {displayAnswers({
-                answers: props.answers,
-                categories: props.categories,
-                questionIndex: props.questionIndex,
-                addAnswerCb: props.handleAddAnswer,
-                addAnswerCategoryCb: props.handleAddAnswerCategory,
-                changeAnswerCb: props.handleAnswerChange,
-                addCorrectAnswerCb: props.handleAddCorrectAnswer,
-                inputType: props.inputType,
-                quizType: props.quizType,
+            <div className='answers-div'>
 
-                
-                })}
-                <hr/>
-
+                {displayAnswers({
+                    answers: props.answers,
+                    categories: props.categories,
+                    questionIndex: props.questionIndex,
+                    addAnswerCb: props.handleAddAnswer,
+                    addAnswerCategoryCb: props.handleAddAnswerCategory,
+                    changeAnswerCb: props.handleAnswerChange,
+                    addCorrectAnswerCb: props.handleAddCorrectAnswer,
+                    inputType: props.inputType,
+                    quizType: props.quizType,
+                    })}
+            </div>
         </div>
     )
 }
