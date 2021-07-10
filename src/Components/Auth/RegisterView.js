@@ -3,11 +3,7 @@ import axios from 'axios';
 import { updateUser } from '../../actions';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
-import MaterialIcon from 'material-icons-react';
-import { Link } from 'react-router-dom';
-import logo1 from '../images/logo1.png';
-import './Register.scss';
-import { validateEmail } from '../utils/validateEmail';
+import './Auth.scss';
 
 
 class Register extends Component {
@@ -29,7 +25,6 @@ class Register extends Component {
   }
 
   handleRegister = (event) => {
-    event.preventDefault();
 
     if (
       this.state.username ||
@@ -42,7 +37,7 @@ class Register extends Component {
         password: this.state.password,
         email: this.state.email,
       }).then(response => {
-        if (response.data.message = 'Registered and Logged In') {
+        if (response.data.message === 'Registered and Logged In') {
           this.props.updateUser(response.data.user)
           this.props.history.push('/home')
           toast.success('Registered and Logged in')
@@ -66,73 +61,49 @@ class Register extends Component {
   render() {
 
     return (
-      <div>
-        <div className="register-form-parent-div">
-          <section className="card">
-
-            <center><Link to="/">
-              <img className="register-logo" src={logo1} alt="logo" />
-            </Link></center>
-            <form
-              className="register-form"
-              onSubmit={event => this.handleRegister(event)}
-            >
-              <div className="input-section">
-                <div className="username">
-                  <div className="username-icon">
-                    <MaterialIcon icon="person" color="gray" />
-                  </div>
-                  <input
-                    className="username-input"
-                    placeholder="Username"
-                    type="text"
-                    onChange={event =>
-                      this.handleInputChange(event.target.value, "username")
-                    }
-                  />
-                </div>
-
-                <div className="password">
-                  <div className="password-icon">
-                    <MaterialIcon icon="vpn_key" color="gray" />
-                  </div>
-
-                  <input
-                    className="password-input"
-                    placeholder="Password"
-                    type="password"
-                    onChange={event =>
-                      this.handleInputChange(event.target.value, "password")
-                    }
-                  />
-                </div>
-                <div className="email">
-                  <div className="email-icon">
-                    <MaterialIcon icon="mail" color="gray" />
-                  </div>
-                  <input
-                    className="email-input"
-                    placeholder="Email Address"
-                    type="text"
-                    onChange={event =>
-                      this.handleInputChange(event.target.value, "email")
-                    }
-                  />
-                </div>
-
-                <div className="register-buttons">
-                  <button 
-                  onClick={this.handleRegister}
-                  className="register-btn">Create account</button>
-
-                  <Link className="login-link" to="/Login">
-                    Already have an Account? Login.
-                  </Link>
-                </div>
+      <div className='center-elements'>
+          <div className='auth-container'>
+            <div className='auth-header'>
+              <h2>
+                Sign up
+              </h2>
+              <h3>
+                It's quick and easy.
+              </h3>
+            </div>
+            
+            <div>
+              <input
+                placeholder="Username"
+                type="text"
+                onChange={event =>
+                  this.handleInputChange(event.target.value, "username")
+                }/>
+            </div>
+            <div>
+              <input
+                placeholder="Password"
+                type="password"
+                onChange={event =>
+                  this.handleInputChange(event.target.value, "password")
+                }/>
+            </div>
+            <div>
+              <input
+                placeholder="Email Address"
+                type="text"
+                onChange={event =>
+                  this.handleInputChange(event.target.value, "email")
+                }/>
+            </div>
+            <div>
+              <button onClick={this.handleRegister}>Create account</button>
+              <div className='auth-or-option'>
+                <div/><p>or</p><div/>
               </div>
-            </form>
-          </section>
-        </div>
+              <button onClick={() => this.props.history.push('/login')}>Login</button>
+            </div>
+          </div>
       </div>)
   }
 }

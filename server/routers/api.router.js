@@ -52,6 +52,13 @@ ApiRouter.get('/quiz/:pin', (req, res) => {
 })
 
 
+ApiRouter.get('/quizzes/:userId', (req, res) => {
+    Quiz.find({quizOwner: req.params.userId}).then( (quizzes) => {
+        res.status(200).send(quizzes);
+    }).catch(err => {
+        res.status(500).send(err);
+    })
+})
 
 ApiRouter.post('/submit', (req, res) => {
     resultReducer(req).then(result => {
@@ -62,6 +69,15 @@ ApiRouter.post('/submit', (req, res) => {
     })
     
 })
+
+ApiRouter.delete('/deletequiz/:quizId', (req, res) => {
+    Quiz.deleteOne({_id: req.params.quizId}).then(() => {
+        res.sendStatus(204);
+    }).catch(err => {
+        res.status(500).send(err)
+    })
+})
+
 module.exports = {
     ApiRouter,
 }

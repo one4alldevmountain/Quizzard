@@ -1,25 +1,9 @@
-.question-textarea {
- margin-top: 20px;   
- margin-left: 20px;
- border-style: inset;
- width: 70%;
- height: 50px;
-}
+@import '../../globalVariable.scss';
+.question-card{
+    background-color: $main-color;
+    margin-bottom: 10px;
 
-
-.add-answer-button {
-  margin: 10px 0px 30px 40px;
-  height: 30px;
-  border-radius: 3px;
-}
-
-.add-answer-button:hover {
-    cursor: pointer;
-    background-color: gray;
-    color: white;
-}
-
-
-.answer-choice-input {
-    margin: 10px 0px 0px 40px;
+    quiz-form-input{
+        border-radius: 5px;
+    }
 }

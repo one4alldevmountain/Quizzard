@@ -1,21 +1,30 @@
-.header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 30px;
-  text-align: center;
-  background: #599bb3;
-  color: white;
-  font-size: 10px;
-  height: 30px;
+@import '../../globalVariable.scss';
+.header{
+  height: 8vh;
+
+  background-color: $main-color;
+  
+  
+  
+  .link{
+    text-decoration: none;
+    float: left;
+    margin-left: 3vw;
+    color: white;
+     
+    };
+    button{
+      float: right;
+      height: 100%;
+      margin-right: 30px;
+      background-color: $main-color;
+      border: none;
+      color: white;
+      border-top-left-radius: 8px;
+    }
+
+    button:hover{
+      color: black;
+      text-decoration: underline;
+    }
 }
-
-
-
-.logo-header {
-  height: 85px;
-}
-
-
-

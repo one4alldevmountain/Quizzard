@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { QuestionCard } from './QuestionCard';
-import HeaderView from '../Header/HeaderView';
-import { Link } from 'react-router-dom';
 import './QuizForm.scss'
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -10,11 +8,8 @@ import { connect } from 'react-redux';
 
 class QuizForm extends Component {
 
-
-
     constructor() {
         super();
-
         this.state = {
 
             whoToEmail: [],
@@ -23,88 +18,36 @@ class QuizForm extends Component {
             quizType: '',
             inputType: '',
             inputsAreValid: false,
+            showQuestionEditer: false,
             quiz: {
                 categories: [
-
                 ],
                 questions: [
-
                 ]
             }
-
-
-
-
         }
     }
-
-    //input change handlers
+    
+    //Create quiz form functions
+    checkInputsValid = () => {
+        if(this.state.quizName && this.state.quizType && this.state.inputType && this.state.whoToEmail.length !== 0){
+            return true;
+        }else{
+            toast.error('You are missing some inputs.')
+        }
+    }
+    toggleQuestionEditer = () => {
+        if(this.state.showQuestionEditer === false && this.checkInputsValid() === true){
+            this.setState({showQuestionEditer: true});
+        }else{
+            this.setState({showQuestionEditer: false});
+        };
+    }
     handleUpperTypeChange = (value, whatToUpdate) => {
-        this.setState({
-            [whatToUpdate]: value,
-        });
-
-        const otherType = whatToUpdate === 'quizType' ? 'inputType' : 'quizType';
-
-        if (this.state[otherType] && value) {
-            this.setState({ inputsAreValid: true })
-
-        }
-        else {
-            this.setState({ inputsAreValid: false })
-        }
-        this.setState({
-            quiz: {
-                categories: [
-
-                ],
-                questions: [
-
-                ]
-            }
-        })
-
-
-    }
-    handleQuestionChange = (content, index) => {
-        this.setState((previousState) => {
-            let questions = previousState.quiz.questions.slice(0);
-            questions[index]['questionContent'] = content;
-
-            return {
-                ...previousState,
-                quiz: {
-                    ...previousState.quiz,
-                    questions: questions,
-
-                }
-            }
-        })
-
-    }
-    handleAnswerChange = (content, questionIndex, answerIndex) => {
-        this.setState(prevState => {
-            let questions = prevState.quiz.questions.slice(0);
-            questions[questionIndex].answers[answerIndex].answerContent = content;
-
-            return {
-                ...prevState,
-                quiz: {
-                    ...prevState.quiz,
-                    questions: questions,
-                }
-            }
-        })
-    }
-    handleCategoryInputChange = (value) => {
-        this.setState({
-            categoryInput: value,
-        })
+        this.setState({[whatToUpdate]: value});
     }
     handleQuizNameChange = (value) => {
-        this.setState({
-            quizName: value,
-        })
+        this.setState({quizName: value})
     }
     handleWhoToEmail = (value) => {
         this.setState(prevState => {
@@ -128,11 +71,45 @@ class QuizForm extends Component {
             }
         })
     }
+    //question form functions
+    handleQuestionChange = (content, index) => {
+        this.setState((previousState) => {
+            let questions = previousState.quiz.questions.slice(0);
+            questions[index]['questionContent'] = content;
 
+            return {
+                ...previousState,
+                quiz: {
+                    ...previousState.quiz,
+                    questions: questions,
 
-    handleAddQuestion = (quizType) => {
+                }
+            }
+        })
+    }
+    handleAnswerChange = (content, questionIndex, answerIndex) => {
+        this.setState(prevState => {
+            let questions = prevState.quiz.questions.slice(0);
+            questions[questionIndex].answers[answerIndex].answerContent = content;
+
+            return {
+                ...prevState,
+                quiz: {
+                    ...prevState.quiz,
+                    questions: questions,
+                }
+            }
+        })
+    }
+    handleCategoryInputChange = (value) => {
+        this.setState({
+            categoryInput: value,
+        })
+    }
+
+    handleAddQuestion = () => {
         let questionsArray = this.state.quiz.questions.slice(0);
-
+        window.scrollTo(10000,10000000)
         if (this.state.inputType === 'boolean') {
             questionsArray.push({
                 answers: [{ answerContent: 'True', category: '' }, { answerContent: 'False', category: '' }],
@@ -148,7 +125,6 @@ class QuizForm extends Component {
 
         }
 
-
         this.setState(prevState => {
             return {
                 ...prevState,
@@ -157,6 +133,7 @@ class QuizForm extends Component {
                     questions: questionsArray,
                 }
             }
+        }, () => {
         })
     }
     handleAddAnswer = (questionIndex) => {
@@ -213,7 +190,6 @@ class QuizForm extends Component {
             }
         })
     }
-
     handleAddCorrectAnswer = (questionIndex, answerIndex, inputType) => {
 
         const indexOfAnswer = this.state.quiz.questions[questionIndex].correctAnswers ? this.state.quiz.questions[questionIndex].correctAnswers.findIndex(answer => {
@@ -266,7 +242,6 @@ class QuizForm extends Component {
         }
     }
     handleSubmitForm = (event) => {
-        event.preventDefault();
 
         if (this.state.quiz.questions.length === 0 || this.state.whoToEmail.length === 0) {
             toast.error('You are missing some inputs')
@@ -289,21 +264,17 @@ class QuizForm extends Component {
                 questions: quiz.questions,
 
             }).then(response => {
-                console.log(response)
-                this.props.history.push('/home'+ `/${response.data.urlExtension}`)
+                this.props.history.push( `/home/${response.data.urlExtension}`)
                 
             }).catch(err => {
                 toast.error('Failed to post quiz');
             })
         }
     }
-
     displayQuestions = (quizType, inputType, questions) => {
-
         if (questions) {
             return (
                 <div>
-
                     {questions.map((question, index) => {
                         return (
                             <div key={index}>
@@ -319,7 +290,6 @@ class QuizForm extends Component {
                                         handleAddAnswer={this.handleAddAnswer}
                                         handleAddCorrectAnswer={this.handleAddCorrectAnswer}
                                         handleAddAnswerCategory={this.handleAddAnswerCategory}
-
                                     />
                                 </div>
                             </div>
@@ -332,14 +302,6 @@ class QuizForm extends Component {
             return null;
         }
     }
-
-
-
-
-
-
-
-
     render() {
         const availableOptions = {
             graded: [
@@ -360,156 +322,112 @@ class QuizForm extends Component {
                 'openEnded',
             ]
         }
-
         const inputType = this.state.quizType ?
             availableOptions[this.state.quizType].map(option => {
-                return <option value={option}>{option}</option>
-            }) : null
-
-
-
+                return <option key={option} value={option}>{option}</option>
+            }) : null;
         return (
-            <div>
-                <div className="header">
-                </div>
-                <div>
-                    <label>
-                        Quiz Name
-                        <input
-                            type='text'
-                            className='quizName'
-                            onChange={event => this.handleQuizNameChange(event.target.value)}
-                            />
-                    </label>
-                </div>
-                <label>
-                    <div className="quiz_form_container">
-                        <div className="backarrow-container">
-                            <Link
-                                className="form-back-arrow"
-                                to="/Home">&#8592;</Link>
-                        </div>
+            <div className='center-elements'>
 
 
-                        <div className="test-type-container">
-                            <div className="test_type">
-                                Test Type:
+                {/* Make quiz form */}
+                <div className='form-container' style={{display: this.state.showQuestionEditer ? 'none' : null}}>
 
-                                <select className="test-type-select" value={this.state.quizType} onChange={event => this.handleUpperTypeChange(event.target.value, 'quizType')}>
-                                    <option className="option" value="">Please choose a quiz type</option>
-                                    <option className="option" value="graded">Graded</option>
-                                    <option className="option" value="sorted">Sorted</option>
-                                    <option className="option" value="survey">Survey</option>
-                                </select>
-                            </div>
-                        </div>
-
+                    <div>
+                        <label>
+                            <p>Quiz Name</p>
+                            
+                            <input
+                                className='quiz-form-input'
+                                type='text'
+                                onChange={event => this.handleQuizNameChange(event.target.value)}/>
+                        </label>
                     </div>
-                </label>
-                <label>
-                    <div className="quiz_form_container">
-                        <div className="input_type">
-                            Question Type:
-                <select className="input-type-select" value={this.state.inputType} onChange={event => this.handleUpperTypeChange(event.target.value, 'inputType')}>
+
+                    <div>
+                        <label>
+                            <p>Test Type</p>
+                            <select value={this.state.quizType} onChange={event => this.handleUpperTypeChange(event.target.value, 'quizType')}>
+                                <option value="">Please choose a quiz type</option>
+                                <option value="graded">Graded</option>
+                                <option value="sorted">Sorted</option>
+                                <option value="survey">Survey</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div>
+                        <label>
+                            <p>Question Type</p>
+                            <select value={this.state.inputType} onChange={event => this.handleUpperTypeChange(event.target.value, 'inputType')}>
 
                                 {this.state.quizType ? <option>Please select the question type</option> : <option>Please select a Quiz type first</option>}
                                 {inputType}
                             </select>
-                        </div>
+                        </label>
                     </div>
-                    <section className="email-section">
-                        <div className="who-to-mail-title-container">
-                            <p className="who-to-mail-title"> Who To Email: </p>
-                        </div>
 
-                        <div className="email-options-container">
-                            <div className="email-option1">
-                                Quiz Maker
-                                   <input
-                                    className="quizmaker-input-box"
-                                    type='checkbox'
-                                    value='quizOwner'
-                                    name='whoToEmail'
-                                    onChange={(event) => this.handleWhoToEmail(event.target.value)}
-                                />
-                            </div>
+                    <div >
+                        <p> Who To Email: </p>
+                    </div>
 
-                            <div className="email-option2">
-                                Quiz Taker  <input
-                                    className="quiztaker-input-box"
-                                    type='checkbox'
-                                    value='quizTaker'
-                                    name='whoToEmail'
-                                    onChange={(event) => this.handleWhoToEmail(event.target.value)}
-                                />
-                            </div>
+                    <div >
+                        Quiz Maker
+                            <input
+                            type='checkbox'
+                            value='quizOwner'
+                            name='whoToEmail'
+                            onChange={(event) => this.handleWhoToEmail(event.target.value)}/>
+                    </div>
+                    
+                    <div>
+                        Quiz Taker  <input
+                            type='checkbox'
+                            value='quizTaker'
+                            name='whoToEmail'
+                            onChange={(event) => this.handleWhoToEmail(event.target.value)}/>
+                    </div>
+                    <button onClick={() => this.toggleQuestionEditer()}>Create Questions</button>
+                </div>
 
 
-
-                        </div>
-
-                    </section>
-
-                </label>
-
-
-
-
-
-                <hr />
-                {
-                    this.state.inputsAreValid ?
-                        <div className="quiz-card">
-                            <center><h1 className="quiz-type-title">{this.state.quizType}</h1> </center>
-
-                            <hr />
-
-
-                            {
-                                this.state.quizType === 'sorted' ?
-                                    <div>
-                                        <input
-                                            type='text'
-                                            placeholder='add a category'
-                                            value={this.state.categoryInput}
-                                            onChange={(event) => this.handleCategoryInputChange(event.target.value)}
-                                        />
-                                        <button
-                                            onClick={event => this.handleAddCategory(event)}
-                                        >
-                                            +
+                {/* make questions form */}
+                    <div className='questions-container floating ' style={{display: this.state.showQuestionEditer ? null : 'none'}}>
+                        {
+                            this.state.quizType === 'sorted' ?
+                                <div className='categories'>
+                                    <input
+                                        type='text'
+                                        placeholder='add a category'
+                                        value={this.state.categoryInput}
+                                        onChange={(event) => this.handleCategoryInputChange(event.target.value)}
+                                    />
+                                    <button
+                                        onClick={event => this.handleAddCategory(event)}
+                                    >
+                                        +
+                            </button>
+                                    <br />
+                                    {this.state.quiz.categories.map((category, index) => {
+                                        return <div key={category + index}>{category}</div>
+                                    })}
+                                </div> : null
+                        }
+                        {this.displayQuestions(this.state.quizType, this.state.inputType, this.state.quiz.questions)}
+                        <div>
+                            <button
+                                onClick={() => this.handleAddQuestion(this.state.quizType)}>
+                                <p>Add a Question</p>
                                 </button>
-                                        <br />
-                                        {this.state.quiz.categories.map(category => {
-                                            return <div>{category}</div>
-                                        })}
-                                    </div> : null
-                            }
-                            {this.displayQuestions(this.state.quizType, this.state.inputType, this.state.quiz.questions)}
-
-
-                            <div className="quiz-card-buttons">
-
-                                <button
-                                    className="add-question-button"
-                                    onClick={() => this.handleAddQuestion(this.state.quizType)}>
-                                    <p>Add a Question</p>
-                                    &#43;</button>
-
-                                <button
-                                    className="create-quiz-button"
-                                    type='submit' onClick={(event) => this.handleSubmitForm(event)}> Create Quiz </button>
-
-                            </div>
-                        </div> :
-                        null
-                }
-
+                        </div>
+                            <button
+                                 onClick={() => this.handleSubmitForm()}> Create Quiz 
+                            </button>
+                    </div> 
+                    
             </div>
-
         )
     }
-
 }
 const mapStateToProps = (reduxState) => {
     const {
@@ -519,6 +437,4 @@ const mapStateToProps = (reduxState) => {
         _id,
     }
 }
-
 export default connect(mapStateToProps)(QuizForm) ;
-//

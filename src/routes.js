@@ -4,7 +4,6 @@ import GetQuizByPin from './Components/GetQuizByPin/GetQuizByPinView';
 import RegisterView from './Components/Auth/RegisterView';
 import LoginView from './Components/Auth/LoginView';
 import HomeView from './Components/Home/HomeView';
-import SearchView from './Components/Search/SearchView';
 import QuizForm from './Components/QuizForm/QuizForm';
 import TakeQuiz from './Components/TakeQuiz/TakeQuiz';
 import { Switch, Route } from 'react-router-dom';
@@ -20,7 +19,6 @@ export default (
        <Route component={QuizForm} path="/form" />
        <Route component={HomeView} path="/home/:urlextension" /> 
        <Route component={HomeView} path="/home" /> 
-       <Route component={SearchView} path="/search" /> 
     </Switch>
 
 )

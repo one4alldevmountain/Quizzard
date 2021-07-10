@@ -1,36 +1,17 @@
 import React from "react";
-import logo1 from "../images/logo1.png";
 import "./Landing.scss";
-import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
-import { validateEmail } from '../utils/validateEmail';
 
 var Landing = props => {
+  const makeQuizUrl = props.email === 'guest' ? '/Register' : '/home';
   return (
-      <div>
-    <div className="card">
-      <center>
-        <img className="logo" src={logo1} alt="logo" />
-      </center>
-      <div className="landing-container">
-          <h3>What would you like to do?</h3>
-        <div className="landing-Buttons">
-          <Link to="/Pin" className="btn-1">
-            Take Quiz
-          </Link>
-          <div className="divider"/>
-          {props.email === 'guest' ? 
-          <Link to="/Register" className="btn-1">
-            Make Quiz
-          </Link>:
-          <Link to="/home" className="btn-1">
-            Make Quiz
-          </Link>
-        }
-          
+      <div className='landing-container'>
+        <div className='landing-div left' onClick={() => props.history.push('/Pin')}>
+            <h2>Take Quiz</h2>
         </div>
-      </div>
-    </div>
+        <div className='landing-div right' onClick={() => props.history.push(makeQuizUrl)}>
+              <h2>Make Quiz</h2>
+        </div>
     </div>
   );
 };

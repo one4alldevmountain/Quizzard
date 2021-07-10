@@ -15,7 +15,7 @@ const { decorate } = require('./middleware/global.middleware');
 const { addRoutes} = require('./routers/routers');
 
 
-mongoose.connect(DB_CONNECTION_STRING)
+mongoose.connect(DB_CONNECTION_STRING, { useNewUrlParser: true})
     .then(() => {
         console.log('connected to the database');
     })

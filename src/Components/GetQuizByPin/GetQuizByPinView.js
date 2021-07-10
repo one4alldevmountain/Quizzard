@@ -1,74 +1,45 @@
 import React, { Component } from 'react';
-import logo1 from '../images/logo1.png';
-import { Link } from 'react-router-dom';
 import './GetQuizByPin.scss';
-
-
+import { toast } from 'react-toastify';
 
 class GetQuizByPin extends Component {
 
     constructor() {
         super();
-
-
-        this.state = {
-            pinInput: '',
-
-        }
+        this.state = {pinInput: ''}
     }
-
-
     handlePinChange = (pin) => {
         this.setState({
             pinInput: pin,
         })
     }
-    handleSubmitPin = (event) => {
-        event.preventDefault();
+    handleGetQuiz = (event) => {
+        if(this.state.pinInput){
+            this.props.history.push('/quiz/' + this.state.pinInput)
 
-
-        this.props.history.push('/quiz/' + this.state.pinInput)
+        }else{
+            toast.error('Enter a pin to continue.')
+        }
     }
-
-
-
     render() {
-
-        return (<div>
-            <div className="pin-form-parent">
-                <div className="pin-container">
-                    <Link to="/">
-                        <img
-                            className="pin-logo"
-                            src={logo1}
-                            alt="logo" />
-                    </Link>
-
-                    <section className="pin-input-section">
-                        <p className="pin-title">Enter Your Pin:</p>
-                        <input
-                            className="pin-input"
-                            type="text"
-                            value={this.state.pinInput}
-                            onChange={(event) => { this.handlePinChange(event.target.value) }}
-                        />
-                        <button
-                            className="pin-submit-btn"
-                            type='submit'
-                            onClick={(event) => this.handleSubmitPin(event)}
-                        >
-                            Submit
-                        </button>
-                    </section>
+        return (
+            <div className='center-elements'>
+                <div className='pin-entry floating'>
+                    <p>Enter Your Pin:</p>
+                    <input
+                        type="text"
+                        value={this.state.pinInput}
+                        onChange={(event) => { this.handlePinChange(event.target.value) }}
+                    />
+                    <br/>
+                    <button
+                        type='submit'
+                        onClick={() => this.handleGetQuiz()}>Get Quiz
+                    </button>
                 </div>
-
-               
-            </div>
             </div>
         );
     }
 }
-
-
 
 export default GetQuizByPin;

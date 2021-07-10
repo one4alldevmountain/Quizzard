@@ -3,7 +3,7 @@ import routes from './routes';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { updateUser } from './actions';
-import { HashRouter, Route } from 'react-router-dom';
+import { HashRouter} from 'react-router-dom';
 import { toast } from 'react-toastify'
 import HeaderView from './Components/Header/HeaderView';
 import 'react-toastify/dist/ReactToastify.css';
@@ -26,27 +26,25 @@ const App = (props) => {
   })
   return (
 
-
+    
     <div >
-      
       <HashRouter>
         <HeaderView/>
-        <div className='pageContainer'>
-
-           {routes}
+        <div className='page-container'>
+           { props._id !== 0 ? routes : "Loading"}
         </div>
       </HashRouter>
     </div>
   );
 }
 
-// const mapStateToProps = (reduxState) => {
-//   const {
-//       _id,
-//   } = reduxState;
-//   return{
-//       _id,
-//   }
-// }
+const mapStateToProps = (reduxState) => {
+  const {
+      _id,
+  } = reduxState;
+  return{
+      _id,
+  }
+}
 
-export default connect(null, { updateUser })(App) 
+export default connect(mapStateToProps, { updateUser })(App) 

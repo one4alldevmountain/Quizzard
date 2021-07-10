@@ -1,6 +1,26 @@
-// .pageContainer{
-//     max-width: 1010px;
-//     min-height: 100vh;
-//     background-color: whitesmoke;
-//     margin: auto;
-// }
+@import './globalVariable.scss';
+
+
+.page-container{
+    min-height: 100vh;
+    min-width: 100;
+    background-color: $secondary-color;
+    margin: auto;
+    padding-bottom: 75px;
+
+    .center-elements{
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+button:focus, input:focus{
+    outline: none;
+}
+.floating{
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, 0.322);
+}
+

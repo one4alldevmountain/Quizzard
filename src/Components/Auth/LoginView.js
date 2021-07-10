@@ -3,10 +3,7 @@ import axios from 'axios';
 import { updateUser } from '../../actions';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
-import MaterialIcon from 'material-icons-react';
-import { Link } from 'react-router-dom';
-import logo1 from '../images/logo1.png';
-import './Login.scss';
+import './Auth.scss';
 
 
 class Login extends Component {
@@ -26,8 +23,7 @@ class Login extends Component {
     this.setState({ [valueTochange]: value });
   }
 
-  handleLogin = (event) => {
-    event.preventDefault();
+  handleLogin = () => {
 
     if (
       this.state.username ||
@@ -59,63 +55,41 @@ class Login extends Component {
   render() {
 
     return (
-      <div>
-        <div className="login-form-parent-div">
-          <section className="card">
-
-            <center><Link to="/">
-              <img className="loginpage-logo" src={logo1} alt="logo" />
-            </Link></center>
-            <form
-              className="login-form"
-              onSubmit={event => this.handleLogin(event)}
-            >
-              <div className="input-section">
-                <div className="username">
-                  <div className="username-icon">
-                    <MaterialIcon icon="person" color="gray" />
-                  </div>
-                  <input
-                    className="username-input"
-                    placeholder="Username"
-                    type="text"
-                    onChange={event =>
-                      this.handleInputChange(event.target.value, "username")
-                    }
-                  />
-                </div>
-
-                <div className="password">
-                  <div className="password-icon">
-                    <MaterialIcon icon="vpn_key" color="gray" />
-                  </div>
-
-                  <input
-                    className="password-input"
-                    placeholder="Password"
-                    type="password"
-                    onChange={event =>
-                      this.handleInputChange(event.target.value, "password")
-                    }
-                  />
-                </div>
-           
-                <div className="loginpage-buttons">
-                <button className="register-btn">Login</button>
-                 
-
-                  <div className="divider"></div>
-
-                  <Link className="sign-up-link" to="/Register">
-                    New to Quizzard? Create an Account.
-                  </Link>
-
-                </div>
+      <div className='center-elements'>
+        <div className='auth-container'>
+          <div className='auth-header'>
+            <h2>
+              Log into Quizzard
+            </h2>
+            
+          </div>
+          <div>
+            <input
+              placeholder="Username"
+              type="text"
+              onChange={event =>
+                this.handleInputChange(event.target.value, "username")
+            }/>
+          </div>
+          <div>
+            <input
+              placeholder="Password"
+              type="password"
+              onChange={event =>
+                this.handleInputChange(event.target.value, "password")
+            }/>
+          </div>
+          <div>
+              <button onClick={()=> this.handleLogin()}>Login</button>
+              <div className='auth-or-option'>
+                <div/><p>or</p><div/>
               </div>
-            </form>
-          </section>
+              <button onClick={() => this.props.history.push('/register')}>Register</button>
+            </div>
+          
         </div>
-      </div>)
+      </div>
+    )
   }
 }
 

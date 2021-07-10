@@ -1,69 +1,27 @@
-@import url(https://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic);
-
-html,
-body {
-  background-color: #282A30;
-}
-.divider{
-  width:30px;
-  height:auto;
-  display:inline-block;
-}
-
-
-.card {
-  background-color: whitesmoke;
-  height: 85vh;
-  width: 55vw;
-  position: center;
-  margin: auto;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
-  overflow: hidden;
-}
-
-
+@import '../../globalVariable.scss';
 .landing-container{
+    height: 100vh;
+    width: 100vw;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: solid;
-    border-width: 0px;
-    background-color: whitesmoke;
-    margin-top: 80px;
-    border-style: outset;
- }
- .logo{
-     margin-top:10px;
-     height: 200px;
-     width: 200px;
-     border-style: outset;
-     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.7);
- }
- .btn-1 {
-	-moz-box-shadow:inset 0px 0px 3px 0px #276873;
-	-webkit-box-shadow:inset 0px 0px 3px 0px #276873;
-	box-shadow:inset 0px 0px 3px 0px #276873;
-	background-color:#599bb3;
-	-moz-border-radius:3px;
-	-webkit-border-radius:3px;
-	border-radius:3px;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Georgia;
-	font-size:19px;
-	padding:32px 31px;
-	text-decoration:none;
 }
-.btn-1:hover {
-	background-color:#408c99;
+.landing-div{
+    width: 100%;
+    text-align: center;
+    background-image: none;
+    transition: background-color .3s;
+    transition: color .3s;
+
+    h2{
+        margin-top: 10vh;
+        font-size: 7vh;
+    };
+    ul{
+        
+    }
+    
+
 }
-.btn-1:active {
-	position:relative;
-	top:1px;
+.right:hover, .left:hover{
+    background-color: adjust-hue($color: $main-color, $degrees: 0);
+    color: adjust-hue($color: white, $degrees: 0)
 }
